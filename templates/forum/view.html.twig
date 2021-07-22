@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ forumEntity.title}}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <a class="m-2 btn btn-primary" href="{{ path('forum_list') }}">Retour</a>
+
+        <div class="m-2 card" style="width: 40rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ forumEntity.title}}</h5>
+                <p>Date de création : {{ forumEntity.createdAt|date("d/m/Y h:i:s") }}</p>
+            </div>
+        </div>
+        <br/>
+        <a class="p-2 m-2 btn btn-primary" href="{{ path('topic_add') }}">Ajout</a>
+        <table class="m-2 table table-success table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for topic in topicEntities %}
+                <tr>
+                    <td><a href="{{ path('topic_view', {'id': topic.id}) }}">{{ topic.title }}</a></td>
+                    <td>
+                        <a class="btn btn-primary" href="{{ path('topic_update', {'id': topic.id}) }}">Modification</a>
+                        <a class="btn btn-danger" href="{{ path('topic_delete', {'id': topic.id}) }}">Suppression</a>
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

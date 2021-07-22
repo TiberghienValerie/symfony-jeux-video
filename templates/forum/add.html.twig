@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout d'un forum{% endblock %}
+
+{% block body %}
+    <a class="btn btn-primary" href="{{ path('forum_list') }}">Retour</a>
+    <div class="m-2 container card">
+         {{ form_start(form) }}
+        <div class="my-custom-class-for-errors">
+            {{ form_errors(form) }}
+        </div>
+
+        <div class="row p-2">
+            <div class="col">
+                {{ form_row(form.title) }}
+            </div>
+        </div>
+
+        <div class="row p-2">
+            <div class="col">
+                {{ form_row(form.save, {'attr': {'class': 'btn btn-primary'}, 'label': 'Add' }) }}
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des forums{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <a class="p-2 m-2 btn btn-primary" href="{{ path('forum_add') }}">Ajout</a>
+
+        <table class="table table-success table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for forum in forumEntities %}
+                <tr>
+                    <td><a href="{{ path('forum_view', {'id': forum.id}) }}">{{ forum.title }}</a></td>
+                    <td>
+                        <a class="btn btn-primary" href="{{ path('forum_update', {'id': forum.id}) }}">Modification</a>
+                        <a class="btn btn-danger" href="{{ path('forum_delete', {'id': forum.id}) }}">Suppression</a>
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
