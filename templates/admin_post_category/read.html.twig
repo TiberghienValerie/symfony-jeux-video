@@ -1,0 +1,16 @@
+{% extends 'layout/back.html.twig' %}
+
+{% block title %}{{ postCategoryEntity.name}}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <a class="m-2 btn btn-primary" href="{{ path('admin_post_category') }}">Retour</a>
+
+        <div class="m-2 card" style="width: 40rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ postCategoryEntity.name}}</h5>
+            </div>
+        </div>
+        <br/>
+    </div>
+{% endblock %}

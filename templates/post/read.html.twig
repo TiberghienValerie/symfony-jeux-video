@@ -1,0 +1,18 @@
+{% extends 'layout/front.html.twig' %}
+
+{% block title %}{{ postEntity.title}}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <a class="m-2 btn btn-primary" href="{{ path('post') }}">Retour</a>
+
+        <div class="m-2 card" style="width: 40rem;">
+            <div class="card-body">
+                <h5 class="card-title">[{{ postEntity.postCategory.name }}] {{ postEntity.title}}</h5>
+                <p>{{ postEntity.content}}</p>
+                <p><i>Created At {{ postEntity.createdAt|date() }} Par {{ postEntity.user.firstName }} {{ postEntity.user.lastName }}</i></p>
+            </div>
+        </div>
+        <br/>
+    </div>
+{% endblock %}

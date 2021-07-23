@@ -1,8 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout/front.html.twig' %}
 
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
     <h1>Bienvenue sur mon site </h1>
     <a href="{{ path('forum_list')}}">Liste des forums</a>
+    <br/>
+    <a href="{{ path('post')}}">Liste des posts</a>
 {% endblock %}

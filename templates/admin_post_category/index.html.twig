@@ -1,0 +1,30 @@
+{% extends 'layout/back.html.twig' %}
+
+{% block title %}Liste des Post Category{% endblock %}
+{% block body %}
+<div class="container">
+    <a class="m-2 btn btn-primary" href="{{ path('admin_post_category_create')}}">Add a new Post Category</a>
+
+    <table class="table table-success table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for postCategory in postCategoryEntities %}
+            <tr>
+                <td>
+                   <a href="{{ path('admin_post_category_read', {'id': postCategory.id}) }}">{{ postCategory.name }}</a>
+                </td>
+                <td>
+                    <a class="m-2 btn btn-primary" href="{{ path('admin_post_category_update', {'id': postCategory.id}) }}">Update</a>
+                    <a class="m-2 btn btn-danger" href="{{ path('admin_post_category_delete', {'id': postCategory.id}) }}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

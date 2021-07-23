@@ -1,0 +1,30 @@
+{% extends 'layout/back.html.twig' %}
+
+{% block title %}Liste des Post {% endblock %}
+{% block body %}
+<div class="container">
+    <a class="m-2 btn btn-primary" href="{{ path('admin_post_create')}}">Add a new Post</a>
+
+    <table class="table table-success table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for post in postEntities %}
+            <tr>
+                <td>
+                   <a href="{{ path('admin_post_read', {'id': post.id}) }}">{{ post.title }}</a>
+                </td>
+                <td>
+                    <a class="m-2 btn btn-primary" href="{{ path('admin_post_update', {'id': post.id}) }}">Update</a>
+                    <a class="m-2 btn btn-danger" href="{{ path('admin_post_delete', {'id': post.id}) }}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

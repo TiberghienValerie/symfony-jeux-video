@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout/front.html.twig' %}
 
 {% block title %}{{ forumEntity.title}}{% endblock %}
 
@@ -13,7 +13,7 @@
             </div>
         </div>
         <br/>
-        <a class="p-2 m-2 btn btn-primary" href="{{ path('topic_add') }}">Ajout</a>
+        <a class="p-2 m-2 btn btn-primary" href="{{ path('topic_add', {'forum':forumEntity.id}) }}">Ajout</a>
         <table class="m-2 table table-success table-striped">
             <thead>
             <tr>

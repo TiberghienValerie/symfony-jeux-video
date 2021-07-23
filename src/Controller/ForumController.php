@@ -75,7 +75,7 @@ class ForumController extends AbstractController
      */
     public function add(Request $request):response
     {
-        // creates a task object and initializes some data for this example
+
         $forumEntity = new Forum();
         $forumEntity->setCreatedAt(new \DateTime());
 
@@ -100,7 +100,7 @@ class ForumController extends AbstractController
      */
     public function delete(string $id, Request $request):response
     {
-        // creates a task object and initializes some data for this example
+
         $forumEntity = $this->forumRepository->find($id);
         $this->em->remove($forumEntity);
         $this->em->flush();
@@ -113,10 +113,10 @@ class ForumController extends AbstractController
      */
     public function update(string $id, Request $request):response
     {
-        // creates a task object and initializes some data for this example
+
         $forumEntity = $this->forumRepository->find($id);
         $forumEntity->setCreatedAt(new \DateTime());
-        $forumEntity->setTitle($forumEntity->getTitle());
+
 
         $form = $this->createForm(ForumType::class, $forumEntity);
 

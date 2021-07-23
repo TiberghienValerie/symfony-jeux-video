@@ -1,0 +1,24 @@
+{% extends 'layout/front.html.twig' %}
+
+{% block title %}Liste des Post {% endblock %}
+{% block body %}
+    <div class="container">
+        <a class="m-2 btn btn-primary" href="{{ path('home') }}">Retour</a>
+        <table class="table table-success table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Title</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for post in postEntities %}
+                <tr>
+                    <td>
+                        <a href="{{ path('post_read', {'id': post.id}) }}">{{ post.title }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
