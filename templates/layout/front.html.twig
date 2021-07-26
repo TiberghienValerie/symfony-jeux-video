@@ -1,6 +1,49 @@
 {% extends 'base.html.twig' %}
-
 {% block header  %}
+    <header>
+        <div class="p-2 container">
+            <nav class="navbar text-right navbar-expand-lg navbar-white bg-white">
+                <img width="25%" class="text-left" src="{{ asset('/images/bandeau.jpg') }}" />
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="accueil" href="{{ path('home') }}">Accueil</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="{{path('admin')}}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Liens
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="{{ path('forum_list') }}">Forums</a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ path('post') }}">Post</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {% if app.user is null %}
+                        <h5><a href="{{ path('app_login') }}">Connexion</a></h5>
+                    {% else %}
+                        <h5>Bienvenue {{ app.user.firstName }}  {{ app.user.lastName }} - <a href="{{ path('app_logout') }}"> Déconnexion</a></h5>
+                    {% endif %}
+
+            </nav>
+
+
+
+        </div>
+
+    </header>
+
 {% endblock %}
 
 {% block footer  %}

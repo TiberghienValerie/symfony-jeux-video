@@ -3,8 +3,8 @@
 {% block title %}Modification du forum {% endblock %}
 
 {% block body %}
-    <a class="btn btn-primary" href="{{ path('forum_list') }}">Retour</a>
-    <div class="m-2 container card">
+    <a class="btn btn-primary m-2 " href="{{ path('forum_list') }}">Retour</a>
+    <div class="m-2 container card border-success">
          {{ form_start(form) }}
         <div class="my-custom-class-for-errors">
             {{ form_errors(form) }}

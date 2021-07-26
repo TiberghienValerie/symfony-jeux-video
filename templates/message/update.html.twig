@@ -1,9 +1,9 @@
 {% extends 'layout/front.html.twig' %}
 
-{% block title %}Ajout d'un forum{% endblock %}
+{% block title %}Modification du message {% endblock %}
 
 {% block body %}
-    <a class="m-2 btn btn-primary" href="{{ path('forum_list') }}">Retour</a>
+    <a class="m-2 btn btn-primary" href="{{ path('topic_view', {'id':topic}) }}">Retour</a>
     <div class="m-2 container card border-success">
          {{ form_start(form) }}
         <div class="my-custom-class-for-errors">
@@ -12,13 +12,13 @@
 
         <div class="row p-2">
             <div class="col">
-                {{ form_row(form.title) }}
+                {{ form_row(form.content) }}
             </div>
         </div>
 
         <div class="row p-2">
             <div class="col">
-                {{ form_row(form.save, {'attr': {'class': 'btn btn-primary'}, 'label': 'Add' }) }}
+                {{ form_row(form.save, {'attr': {'class': 'btn btn-primary'}, 'label': 'Update' }) }}
             </div>
         </div>
 

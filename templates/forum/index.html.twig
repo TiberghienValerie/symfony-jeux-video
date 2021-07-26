@@ -5,26 +5,16 @@
 {% block body %}
     <div class="container">
         <a class="p-2 m-2 btn btn-primary" href="{{ path('forum_add') }}">Ajout</a>
-
-        <table class="table table-success table-striped">
-            <thead>
-            <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
+        <div class="row">
             {% for forum in forumEntities %}
-                <tr>
-                    <td><a href="{{ path('forum_view', {'id': forum.id}) }}">{{ forum.title }}</a></td>
-                    <td>
+                <div class="card col-4 m-2 border-success">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="{{ path('forum_view', {'id': forum.id}) }}">{{ forum.title }}</a></h5>
                         <a class="btn btn-primary" href="{{ path('forum_update', {'id': forum.id}) }}">Modification</a>
                         <a class="btn btn-danger" href="{{ path('forum_delete', {'id': forum.id}) }}">Suppression</a>
-
-                    </td>
-                </tr>
+                    </div>
+                </div>
             {% endfor %}
-            </tbody>
-        </table>
+        </div>
     </div>
 {% endblock %}

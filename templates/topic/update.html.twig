@@ -1,19 +1,32 @@
 {% extends 'layout/front.html.twig' %}
 
-{% block title %}Modification du forum {% endblock %}
+{% block title %}Modification du topic {% endblock %}
 
 {% block body %}
-    <a class="btn btn-primary" href="{{ path('forum_list') }}">Retour</a>
-    <div class="m-2 container card">
+    <a class="btn btn-primary m-2" href="{{ path('forum_view', {'id': forum}) }}">Retour</a>
+    <div class="m-2 container card border-success">
          {{ form_start(form) }}
         <div class="my-custom-class-for-errors">
             {{ form_errors(form) }}
         </div>
-
         <div class="row p-2">
             <div class="col">
                 {{ form_row(form.title) }}
             </div>
+        </div>
+
+        <div class="row p-2">
+            <div class="col-12 m-2">
+                {% if logo != '' %}
+                    <img src="{{ asset('uploads/logo/' ~ logo) }}" />
+                {%endif %}
+                {{ form_label(form.pathLogo) }}
+                {{ form_widget(form.pathLogo, {'attr': {'class': 'task_field'}}) }}
+            </div>
+
+
+
+
         </div>
 
         <div class="row p-2">

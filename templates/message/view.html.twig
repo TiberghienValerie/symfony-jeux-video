@@ -1,0 +1,19 @@
+{% extends 'layout/front.html.twig' %}
+
+{% block title %}{{ messageEntity.content}}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <a class="m-2 btn btn-primary" href="{{ path('topic_view', {'id':messageEntity.topic.id}) }}">Retour</a>
+        <div class="m-2 card border-success">
+            <div class="card-body">
+                <h5 class="card-title">{{ messageEntity.content}}</h5>
+                <p>Date de création : {{ messageEntity.createdAt|date("d/m/Y h:i:s") }}
+                    par {{ messageEntity.user.firstName }} {{ messageEntity.user.lastName }}
+                    ({{ messageEntity.user.email }})
+                </p>
+            </div>
+        </div>
+        <br/>
+    </div>
+{% endblock %}

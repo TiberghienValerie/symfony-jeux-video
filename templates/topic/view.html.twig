@@ -6,12 +6,73 @@
     <div class="container">
         <a class="m-2 btn btn-primary" href="{{ path('forum_view', {'id':topicEntity.forum.id}) }}">Retour</a>
 
-        <div class="m-2 card" style="width: 40rem;">
+        <div class="m-2 card border-success">
             <div class="card-body">
-                <h5 class="card-title">{{ topicEntity.title}}</h5>
+                <h5 class="card-title">
+                    {% if topicEntity.pathLogo !='' %}
+                        <img src="{{ asset('uploads/logo/' ~ topicEntity.pathLogo) }}" />
+                    {%endif %}
+                    {{ topicEntity.title}}
+                </h5>
                 <p>Date de création : {{ topicEntity.createdAt|date("d/m/Y h:i:s") }}</p>
             </div>
         </div>
         <br/>
+
+        {% if app.user is not null %}
+            <div class="m-2 card border-success">
+                {{ form_start(form) }}
+                <div class="my-custom-class-for-errors">
+                    {{ form_errors(form) }}
+                </div>
+
+                <div class="row p-2">
+                    <div class="col">
+                        {{ form_row(form.content) }}
+                    </div>
+                </div>
+
+                <div class="row p-2">
+                    <div class="col">
+                        {{ form_row(form.save, {'attr': {'class': 'btn btn-primary'}, 'label': 'Add' }) }}
+                    </div>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        {% endif %}
+
+
+        <table class="m-2 table table-success table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Auteur</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for message in messageEntities %}
+                <tr>
+                    <td>
+                        <a href="{{ path('message_view', {'id':message.id}) }}">
+                            {{ message.content|slice(0,50) }} ...
+                        </a>
+                    </td>
+                    <td>
+                        {{ message.user.firstName }} {{ message.user.lastName }} ({{ message.user.email }})
+                    </td>
+                    <td>
+                        {% if app.user == message.user and app.user is not null %}
+                            <a class="btn btn-primary" href="{{ path('message_update', {'id':message.id}) }}">Modification</a>
+                            <a class="btn btn-danger" href="{{ path('message_delete', {'id':message.id}) }}">Suppression</a>
+                        {% endif %}
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
     </div>
 {% endblock %}

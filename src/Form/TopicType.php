@@ -23,7 +23,14 @@ class TopicType extends AbstractType
                'required' => true,
                'mapped' => false,
                'constraints' => [
-                    new Image(['maxSize' => '1024k'])
+                    new Image([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/png',
+                            'image/jpeg',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid JPG ou PNG Image',
+                    ])
                ],
             ])
             ->add('save',SubmitType::class)
