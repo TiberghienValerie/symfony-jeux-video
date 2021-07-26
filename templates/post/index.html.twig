@@ -4,14 +4,20 @@
 {% block body %}
     <div class="container">
         <a class="m-2 btn btn-primary" href="{{ path('home') }}">Retour</a>
+        {# total items count #}
+        <div class="count">
+            <h3> Number of Post : {{ pagination.getTotalItemCount }} </h3>
+        </div>
         <table class="table table-success table-striped">
             <thead>
-            <tr>
-                <th scope="col">Title</th>
-            </tr>
+           <tr>
+               <th{% if pagination.isSorted('p.Title') %} class="sorted"{% endif %}>
+                   {{ knp_pagination_sortable(pagination, 'Title', 'p.title') }}
+               </th>
+           </tr>
             </thead>
             <tbody>
-            {% for post in postEntities %}
+            {% for post in pagination %}
                 <tr>
                     <td>
                         <a href="{{ path('post_read', {'id': post.id}) }}">{{ post.title }}</a>
@@ -20,5 +26,8 @@
             {% endfor %}
             </tbody>
         </table>
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
     </div>
 {% endblock %}

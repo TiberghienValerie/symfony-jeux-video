@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Animal;
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -47,4 +48,11 @@ class PostRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return Post[] Returns an array of post objects
+     */
+    public function findPost() {
+        return $this->createQueryBuilder('p');
+    }
 }
