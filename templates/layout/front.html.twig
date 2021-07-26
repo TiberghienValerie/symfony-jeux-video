@@ -27,6 +27,16 @@
                                     </li>
                                 </ul>
                             </li>
+                            {% if app.user is not null %}
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="contact" href="{{ path('contact') }}">Nous contacter</a>
+                            </li>
+                                {% if is_granted('ROLE_WORKER') == true %}
+                                    <li class="nav-item">
+                                    <a class="nav-link active" aria-current="administration" href="{{ path('admin') }}">Administration</a>
+                                    </li>
+                                {% endif %}
+                            {% endif %}
                         </ul>
                     </div>
 

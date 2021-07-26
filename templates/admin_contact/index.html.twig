@@ -1,0 +1,35 @@
+{% extends 'layout/back.html.twig' %}
+
+{% block title %}Liste des message via contact{% endblock %}
+{% block body %}
+    <div class="container">
+
+
+        <table class="table table-success table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Objet</th>
+
+                <th scope="col">Traité le </th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for contact in contactEntities %}
+                <tr>
+                    <td>
+                        <a {% if contact.isVu==0 %} class="notvue" {% endif  %} href="{{ path('admin_contact_read', {'id': contact.id}) }}">{{ contact.objet }}</a>
+                    </td>
+                    <td>
+                        {% if contact.traitedAt is not null %}
+
+                            {{ contact.traitedAt| date}}
+
+                        {% endif %}
+                            </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

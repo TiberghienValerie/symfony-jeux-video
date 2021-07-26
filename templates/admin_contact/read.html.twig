@@ -1,0 +1,28 @@
+{% extends 'layout/back.html.twig' %}
+
+{% block title %}{{ contactEntity.objet}}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <a class="m-2 btn btn-primary" href="{{ path('admin_contact') }}">Retour</a>
+
+        <div class="m-2 card" style="width: 40rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ contactEntity.objet}}</h5>
+                {{ contactEntity.message}}
+                <i>
+                    Ecrit par {{ contactEntity.user.firstName}} {{ contactEntity.user.lastName}}
+                    le {{ contactEntity.createdAt | date}}
+                </i>
+                <br/>
+                <i>
+                    {% if contactEntity.traitedAt is not null %}
+                    Traité le {{ contactEntity.traitedAt| date}}
+                    {% endif %}
+                </i>
+            </div>
+        </div>
+        <br/>
+        <a class="m-2 btn btn-primary" href="{{ path('admin_contact_traiter', {'id': contactEntity.id}) }}">Message traiter</a>
+    </div>
+{% endblock %}
