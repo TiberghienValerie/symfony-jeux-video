@@ -50,6 +50,9 @@ class AdminContactController extends AbstractController
     public function read(string $id): Response
     {
         $contactEntity = $this->contactRepository->find($id);
+        $contactEntity->setIsVu(1);
+        $this->em->persist($contactEntity);
+        $this->em->flush();
 
         return $this->render('admin_contact/read.html.twig', [
             'contactEntity' => $contactEntity
@@ -63,7 +66,6 @@ class AdminContactController extends AbstractController
     {
         $contactEntity = $this->contactRepository->find($id);
         $contactEntity->setTraitedAt(new \DateTime());
-        $contactEntity->setIsVu(1);
         $this->em->persist($contactEntity);
         $this->em->flush();
         return $this->redirectToRoute('admin_contact');
