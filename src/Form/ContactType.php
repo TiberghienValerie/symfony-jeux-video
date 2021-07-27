@@ -18,6 +18,9 @@ class ContactType extends AbstractType
         $builder
             ->add('objet', TextType::class,[
                 'label' => 'Objet du message',
+                'attr' => [
+                    'size' => 50,
+                ]
             ])
             ->add('message', TextareaType::class,[
             'label' => 'Contenu du message',

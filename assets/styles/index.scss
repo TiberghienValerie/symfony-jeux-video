@@ -34,5 +34,12 @@ a.notvue {
   color: red!important;
 }
 
+.current {
+  color:red!important;
+}
+
+.current, .page, .next, .previous, .first, .last {
+  font-size:30px;
+}
 
 

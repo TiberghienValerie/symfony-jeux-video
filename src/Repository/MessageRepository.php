@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Message;
+use App\Entity\Topic;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -47,4 +48,16 @@ class MessageRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return Message[] Returns an array of message objects
+     */
+    public function findMessage(Topic $topic) {
+        return $this->createQueryBuilder('m')
+            ->innerJoin('m.topic', 't')
+            ->where('t.id = :topic_id')
+            ->setParameter('topic_id', $topic->getId())
+
+            ;
+    }
 }

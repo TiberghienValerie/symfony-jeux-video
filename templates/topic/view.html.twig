@@ -4,6 +4,7 @@
 
 {% block body %}
     <div class="container">
+        <h1 class="text-center">Affichage du topic </h1>
         <a class="m-2 btn btn-primary" href="{{ path('forum_view', {'id':topicEntity.forum.id}) }}">Retour</a>
 
         <div class="m-2 card border-success">
@@ -20,6 +21,7 @@
         <br/>
 
         {% if app.user is not null %}
+            <h2 class="text-center">Ajout du message </h2>
             <div class="m-2 card border-success">
                 {{ form_start(form) }}
                 <div class="my-custom-class-for-errors">
@@ -42,17 +44,25 @@
             </div>
         {% endif %}
 
-
+        <h2 class="text-center">Liste des messages </h2>
+        {# total items count #}
+        <div class="count">
+            <h3 class="m-2"> Number of message : {{ pagination.getTotalItemCount }} </h3>
+        </div>
         <table class="m-2 table table-success table-striped">
             <thead>
             <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Auteur</th>
+                <th {% if pagination.isSorted('m.content') %} class="sorted"{% endif %} scope="col">
+                    {{ knp_pagination_sortable(pagination, 'Content', 'm.content') }}
+                </th>
+                <th scope="col">
+                    Auteur
+                </th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
-            {% for message in messageEntities %}
+            {% for message in pagination %}
                 <tr>
                     <td>
                         <a href="{{ path('message_view', {'id':message.id}) }}">
@@ -73,6 +83,8 @@
             {% endfor %}
             </tbody>
         </table>
-
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
     </div>
 {% endblock %}

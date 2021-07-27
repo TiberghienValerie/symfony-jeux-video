@@ -4,6 +4,8 @@
 
 {% block body %}
     <div class="container">
+        <h1 class="text-center">Liste des forums </h1>
+        <a class="m-2 btn btn-primary" href="{{ path('home') }}">Retour</a>
         <a class="p-2 m-2 btn btn-primary" href="{{ path('forum_add') }}">Ajout</a>
         <div class="row">
             {% for forum in forumEntities %}

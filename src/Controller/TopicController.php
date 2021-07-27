@@ -10,12 +10,14 @@ use App\Repository\ForumRepository;
 use App\Repository\MessageRepository;
 use App\Repository\TopicRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\String\Slugger\SluggerInterface;
+
 
 
 class TopicController extends AbstractController
@@ -147,12 +149,20 @@ class TopicController extends AbstractController
     /**
      * @Route("/topic_view/{id}", name="topic_view")
      */
-    public function view(string $id, Request $request): Response
+    public function view(string $id, Request $request, PaginatorInterface $paginator): Response
     {
         $topicEntity = $this->topicRepository->find($id);
-        $messageEntities = $this->messageRepository->findBy(
-            ['topic'=>$id]
+
+        $qb = $this->messageRepository->findMessage($topicEntity);
+
+        $pagination = $paginator->paginate(
+            $qb, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            10 /*limit per page*/
         );
+
+
+
 
         $messageEntity = new Message();
         $messageEntity->setCreatedAt(new \DateTime());
@@ -173,7 +183,8 @@ class TopicController extends AbstractController
         return $this->render('topic/view.html.twig', [
             'form' => $form->createView(),
             'topicEntity' => $topicEntity,
-            'messageEntities' => $messageEntities,
+            /*'messageEntities' => $messageEntities,*/
+            'pagination' => $pagination
 
         ]);
     }

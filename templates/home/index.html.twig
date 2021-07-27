@@ -6,6 +6,41 @@
     <div class="container">
     <h1 class="text-center">Bienvenue sur mon site </h1>
 
+    <div class="container">
+        <div class="row">
+            <div class="m-2 card border-success col-5">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Forum</h5>
+                    <a href="{{ path('forum_list') }}"><img width="100%" class="text-center" src="{{ asset('/images/forum.png') }}" /></a>
+                </div>
+            </div>
+
+            <div class="m-2 card border-success col-5">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Post</h5>
+                    <a href="{{ path('post') }}"><img width="100%" class="text-center" src="{{ asset('/images/post.png') }}" /></a>
+                </div>
+            </div>
+            {% if app.user is not null %}
+                <div class="m-2 card border-success col-5">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Nous contacter</h5>
+                        <a href="{{ path('contact') }}"><img width="100%" class="text-center" src="{{ asset('/images/contact.jpg') }}" /></a>
+                    </div>
+                </div>
+                {% if is_granted('ROLE_WORKER') == true %}
+                    <div class="m-2 card border-success col-5">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Administration</h5>
+                            <a href="{{ path('admin') }}"><img width="100%" class="text-center" src="{{ asset('/images/administration.png') }}" /></a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+
+        </div>
+    </div>
+
 
 
     </div>

@@ -38,15 +38,13 @@ class PostController extends AbstractController
     public function index(PaginatorInterface $paginator, Request $request): Response
     {
         //$postEntities = $this->postRepository->findAll();
-        $postEntities = $this->postRepository->findPost();
-        $query = $this->em->createQuery($postEntities);
+        $qb = $this->postRepository->findPost();
 
         $pagination = $paginator->paginate(
-            $query, /* query NOT result */
+            $qb, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
-            1 /*limit per page*/
+            10 /*limit per page*/
         );
-
         return $this->render('post/index.html.twig', [
             'pagination' => $pagination
         ]);

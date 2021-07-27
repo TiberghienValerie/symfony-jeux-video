@@ -4,6 +4,7 @@
 
 {% block body %}
     <div class="container">
+        <h1 class="text-center">Affichage du forum </h1>
         <a class="m-2 btn btn-primary" href="{{ path('forum_list') }}">Retour</a>
         <div class="m-2 card border-success">
             <div class="card-body">
@@ -12,9 +13,9 @@
             </div>
         </div>
         <br/>
-        {% if app.user is not null %}
-            forum Ajout
-        {% endif %}
+
+        <h2 class="text-center">Liste des topics </h2>
+        <a class="m-2 btn btn-primary" href="{{ path('topic_add', {'forum': forumEntity.id}) }}">Ajout</a>
         <table class="m-2 table table-success table-striped">
             <thead>
             <tr>
