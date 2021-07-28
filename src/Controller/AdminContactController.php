@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Enum\ContactEnum;
 use App\Repository\ContactRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -50,7 +51,8 @@ class AdminContactController extends AbstractController
     public function read(string $id): Response
     {
         $contactEntity = $this->contactRepository->find($id);
-        $contactEntity->setIsVu(1);
+        //$contactEntity->setIsVu(1);
+        $contactEntity->setStatus(ContactEnum::STATUS_TICKET_READ);
         $this->em->persist($contactEntity);
         $this->em->flush();
 

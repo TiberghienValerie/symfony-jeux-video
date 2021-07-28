@@ -13,11 +13,12 @@
                 <i>
                     Ecrit par {{ contactEntity.user.firstName}} {{ contactEntity.user.lastName}}
                     le {{ contactEntity.createdAt | date}}
+                    {% if contactEntity.status == 1 %} Message vue {% endif %}
                 </i>
                 <br/>
                 <i>
-                    {% if contactEntity.traitedAt is not null %}
-                    Traité le {{ contactEntity.traitedAt| date}}
+                    {% if contactEntity.status == 2 %}
+                    Message traité le {{ contactEntity.traitedAt| date}}
                     {% endif %}
                 </i>
             </div>

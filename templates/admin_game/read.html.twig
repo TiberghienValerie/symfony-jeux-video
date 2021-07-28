@@ -1,0 +1,56 @@
+{% extends 'layout/back.html.twig' %}
+
+{% block title %}{{ gameEntity.title}}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <a class="m-2 btn btn-primary" href="{{ path('admin_game') }}">Retour</a>
+
+        <div class="m-2 card" style="width: 40rem;">
+            <div class="card-body">
+                {% if gameEntity.pathImg !='' %}
+                    <img width="25%" src="{{ asset('uploads/logo/' ~ gameEntity.pathImg) }}" />
+                {%endif %}
+                <h5 class="card-title">{{ gameEntity.title}}</h5>
+                <p>{{ gameEntity.description}}</p>
+                <p>Prix : {{ gameEntity.price}} €</p>
+                <p><i>Launch At {{ gameEntity.launchAt|date() }}</i></p>
+
+                <p>Catégories : </p>
+                {% for categorie in gameEntity.gameCategory%}
+                    <li>{{ categorie.name }}</li>
+                {% endfor %}
+                <br/>
+                <p>Devices indispensable</p>
+                {% for device in gameEntity.device%}
+                    <li>
+                        {{ device.name }}
+                        {% if device.pathLogo !='' %}
+                            <img width="25%" src="{{ asset('uploads/logo/' ~ device.pathLogo) }}" />
+                        {%endif %}
+                    </li>
+                {% endfor %}
+
+                <br/>
+                <p>Note global : </p>
+                {% if gameEntity.NoteGlobal==0 %}
+                    {% for i  in 1..10 %}
+                        <img width="30px" height="30px" src="{{ asset('images/EmptyStar.jpg') }}" />
+                    {% endfor %}
+                {% elseif gameEntity.NoteGlobal==10 %}
+                    {% for i  in 1..10 %}
+                        <img width="30px" height="30px" src="{{ asset('images/FullStar.jpg') }}" />
+                    {% endfor %}
+                {% else %}
+                    {% for i  in 1..gameEntity.NoteGlobal%}
+                        <img width="30px" height="30px" src="{{ asset('images/FullStar.jpg') }}" />
+                    {% endfor %}
+                    {% for i  in gameEntity.NoteGlobal+1..10%}
+                        <img width="30px" height="30px" src="{{ asset('images/EmptyStar.jpg') }}" />
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <br/>
+    </div>
+{% endblock %}

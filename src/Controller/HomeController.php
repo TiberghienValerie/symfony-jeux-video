@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Enum\ContactEnum;
 use App\Form\ContactType;
 use App\Repository\ContactRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -61,7 +62,8 @@ class HomeController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
 
                 $contactEntity->setCreatedAt(new \DateTime());
-                $contactEntity->setIsVu(0);
+                //$contactEntity->setIsVu(0);
+                $contactEntity->setStatus(ContactEnum::STATUS_TICKET_UNREAD);
                 $contactEntity->setUser($this->getUser());
 
                 $this->em->persist($contactEntity);

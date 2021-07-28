@@ -1,0 +1,30 @@
+{% extends 'layout/back.html.twig' %}
+
+{% block title %}Liste des Game Category{% endblock %}
+{% block body %}
+<div class="container">
+    <a class="m-2 btn btn-primary" href="{{ path('admin_game_category_create')}}">Add a new Game Category</a>
+
+    <table class="table table-success table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for gameCategory in gameCategoryEntities %}
+            <tr>
+                <td>
+                   <a href="{{ path('admin_game_category_read', {'id': gameCategory.id}) }}">{{ gameCategory.name }}</a>
+                </td>
+                <td>
+                    <a class="m-2 btn btn-primary" href="{{ path('admin_game_category_update', {'id': gameCategory.id}) }}">Update</a>
+                    <a class="m-2 btn btn-danger" href="{{ path('admin_game_category_delete', {'id': gameCategory.id}) }}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

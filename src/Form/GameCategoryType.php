@@ -2,40 +2,34 @@
 
 namespace App\Form;
 
-use App\Entity\Message;
+use App\Entity\GameCategory;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class MessageType extends AbstractType
+class GameCategoryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('content', TextareaType::class,[
+            ->add('name', TextType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a message',
+                        'message' => 'Please enter a name',
                     ])],
-                    'label' => 'Contenu du message',
-                    'attr' => [
-                        'rows' => 5,
-                        'cols' => 150,
-                    ]
             ])
-            ->add('save',SubmitType::class);
+            ->add('submit', SubmitType::class);
+
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Message::class,
+            'data_class' => GameCategory::class,
         ]);
     }
 }

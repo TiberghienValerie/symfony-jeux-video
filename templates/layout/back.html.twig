@@ -10,8 +10,14 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="accueil" href="{{ path('home') }}">Accueil</a>
+                                <a class="nav-link active" aria-current="accueil" href="{{ path('home') }}">Home</a>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="home admin" href="{{ path('admin') }}">Home Administration</a>
+                            </li>
+
+
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="{{path('admin')}}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Administration
@@ -25,6 +31,21 @@
                                         <a class="dropdown-item" href="{{ path('admin_post') }}">Post</a>
                                     </li>
                                     <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ path('admin_device') }}">Device</a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ path('admin_game_category') }}">Game Category</a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+
+                                    <li>
+                                        <a class="dropdown-item" href="{{ path('admin_game') }}">Game</a>
+                                    </li>
+
+                                    <li><hr class="dropdown-divider"></li>
+
                                     <li>
                                         <a class="dropdown-item" href="{{ path('admin_contact') }}">Message de contact</a>
                                     </li>

@@ -1,0 +1,69 @@
+{% extends 'layout/back.html.twig' %}
+{% block title %}Update a new Game {% endblock %}
+{% block body %}
+
+    <div class="container">
+        <a class="btn btn-primary" href="{{ path('admin_game') }}">Retour</a>
+        <div class="m-2 container card">
+            {{ form_start(form) }}
+            <div class="my-custom-class-for-errors">
+                {{ form_errors(form) }}
+            </div>
+
+            <div class="row p-2">
+                <div class="col">
+                    {{ form_row(form.title) }}
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col">
+                    {{ form_row(form.description) }}
+                </div>
+            </div>
+
+            <div class="row p-2">
+                <div class="col-12 m-2">
+                    {% if logo != '' %}
+                        <img width="25%" src="{{ asset('uploads/logo/' ~ logo) }}" />
+                    {%endif %}
+                    {{ form_label(form.pathImg) }}
+                    {{ form_widget(form.pathImg) }}
+                </div>
+            </div>
+
+            <div class="row p-2">
+                <div class="col">
+                    {{ form_row(form.price) }}
+                </div>
+            </div>
+
+            <div class="row p-2">
+                <div class="col">
+                    {{ form_row(form.forum) }}
+                </div>
+            </div>
+
+            <div class="row p-2">
+                <div class="col">
+                    {{ form_row(form.gameCategory) }}
+                </div>
+            </div>
+
+            <div class="row p-2">
+                <div class="col">
+                    {{ form_row(form.device) }}
+                </div>
+            </div>
+
+            <div class="row p-2">
+                <div class="col">
+                    {{ form_row(form.submit, {'attr': {'class': 'btn btn-primary'}, 'label': 'Update' }) }}
+                </div>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+
+{% endblock %}

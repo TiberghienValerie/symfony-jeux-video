@@ -2,9 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\Topic;
+use App\Entity\Device;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -13,22 +12,22 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class TopicType extends AbstractType
+class DeviceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class, [
+            ->add('name',TextType::class,[
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a title',
+                        'message' => 'Please enter a name',
                     ])],
             ])
-            ->add('pathLogo', FileType::class, [
-               'label' => 'Logo (Image file)',
-               'required' => true,
-               'mapped' => false,
-               'constraints' => [
+            ->add('pathLogo',FileType::class,[
+                'label' => 'Logo (Image file)',
+                'required' => true,
+                'mapped' => false,
+                'constraints' => [
                     new Image([
                         'maxSize' => '1024k',
                         'maxSizeMessage' => 'The file is too large ({{ size }} {{ suffix }}). Allowed maximum size is {{ limit }} {{ suffix }}',
@@ -38,17 +37,16 @@ class TopicType extends AbstractType
                         ],
                         'mimeTypesMessage' => 'The mime type of the file is invalid ({{ type }}). Allowed mime types are {{ types }}',
                     ])
-               ],
+                ],
             ])
-            ->add('save',SubmitType::class)
-
+            ->add('submit',SubmitType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Topic::class,
+            'data_class' => Device::class,
         ]);
     }
 }

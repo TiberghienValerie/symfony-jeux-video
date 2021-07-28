@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 
 class PostType extends AbstractType
@@ -19,8 +20,18 @@ class PostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class)
-            ->add('content', TextType::class)
+            ->add('title', TextType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a title',
+                    ])],
+            ])
+            ->add('content', TextType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a content',
+                    ])],
+            ])
             ->add('postCategory', EntityType::class, [
                 'class' => PostCategory::class,
                 'choice_label' => 'name'

@@ -33,11 +33,6 @@ class Contact
     private $createdAt;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isVu;
-
-    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $traitedAt;
@@ -47,6 +42,11 @@ class Contact
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $status;
 
     public function getId(): ?int
     {
@@ -89,18 +89,6 @@ class Contact
         return $this;
     }
 
-    public function getIsVu(): ?bool
-    {
-        return $this->isVu;
-    }
-
-    public function setIsVu(bool $isVu): self
-    {
-        $this->isVu = $isVu;
-
-        return $this;
-    }
-
     public function getTraitedAt(): ?\DateTimeInterface
     {
         return $this->traitedAt;
@@ -121,6 +109,18 @@ class Contact
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

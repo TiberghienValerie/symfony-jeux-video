@@ -1,0 +1,110 @@
+{% extends 'layout/back.html.twig' %}
+{% block title %}Add a new Post {% endblock %}
+{% block body %}
+
+<div class="container">
+    <a class="btn btn-primary" href="{{ path('admin_post') }}">Retour</a>
+    <div class="m-2 container card">
+        {{ form_start(form) }}
+        <div class="my-custom-class-for-errors">
+            {{ form_errors(form) }}
+        </div>
+
+        <div class="row p-2">
+            <div class="col">
+                {{ form_row(form.title) }}
+            </div>
+        </div>
+        <div class="row p-2">
+            <div class="col">
+                {{ form_row(form.description) }}
+            </div>
+        </div>
+
+        <div class="row p-2">
+            <div class="col">
+                {{ form_row(form.pathImg) }}
+            </div>
+        </div>
+
+        <div class="row p-2">
+            <div class="col">
+                {{ form_row(form.price) }}
+            </div>
+        </div>
+
+        <div class="row p-2">
+            <div class="col">
+                {{ form_row(form.noteGlobal) }}
+                <img width="30px" height="30px" style="float:left;cursor:pointer;" src="{{ asset('images/emptystar.jpg') }}" name="star" id="0" onmouseover="fillstar(this)" onclick="vote(this,1)"/>
+                <img width="30px" height="30px"style="float:left;cursor:pointer;" src="{{ asset('images/emptystar.jpg') }}" name="star" id="1" onmouseover="fillstar(this)" onclick="vote(this,2)"/>
+                <img width="30px" height="30px" style="float:left;cursor:pointer;" src="{{ asset('images/emptystar.jpg') }}" name="star" id="2" onmouseover="fillstar(this)" onclick="vote(this,3)"/>
+                <img width="30px" height="30px" style="float:left;cursor:pointer;" src="{{ asset('images/emptystar.jpg') }}" name="star" id="3" onmouseover="fillstar(this)" onclick="vote(this,4)"/>
+
+                <img width="30px" height="30px" style="float:left;cursor:pointer;" src="{{ asset('images/emptystar.jpg') }}" name="star" id="4" onmouseover="fillstar(this)" onclick="vote(this,5)" />
+                <img width="30px" height="30px" style="float:left;cursor:pointer;" src="{{ asset('images/emptystar.jpg') }}" name="star" id="5" onmouseover="fillstar(this)" onclick="vote(this,6)" />
+                <img width="30px" height="30px" style="float:left;cursor:pointer;" src="{{ asset('images/emptystar.jpg') }}" name="star" id="6" onmouseover="fillstar(this)" onclick="vote(this,7)" />
+
+                <img width="30px" height="30px" style="float:left;cursor:pointer;" src="{{ asset('images/emptystar.jpg') }}" name="star" id="7" onmouseover="fillstar(this)" onclick="vote(this,8)" />
+                <img width="30px" height="30px" style="float:left;cursor:pointer;" src="{{ asset('images/emptystar.jpg') }}" name="star" id="8" onmouseover="fillstar(this)" onclick="vote(this,9)" />
+
+                <img width="30px" height="30px" style="cursor:pointer;" src="{{ asset('images/emptystar.jpg') }}" name="star"  id="9"  onmouseover="fillstar(this)" onclick="vote(this,10)" />
+                <br/><br/>
+            </div>
+        </div>
+
+        <div class="row p-2">
+            <div class="col">
+                {{ form_row(form.forum) }}
+            </div>
+        </div>
+
+        <div class="row p-2">
+            <div class="col">
+                {{ form_row(form.gameCategory) }}
+            </div>
+        </div>
+
+        <div class="row p-2">
+            <div class="col">
+                {{ form_row(form.device) }}
+            </div>
+        </div>
+
+        <div class="row p-2">
+            <div class="col">
+                {{ form_row(form.submit, {'attr': {'class': 'btn btn-primary'}, 'label': 'Add' }) }}
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+</div>
+
+
+
+    <script>
+        function vote(Obj, val) {
+
+            var champ = Obj.parentElement.children.namedItem('game_noteGlobal');
+            champ.value = val;
+            console.log(champ.value);
+
+        }
+
+        function fillstar(Obj){
+            var stars=document.getElementsByName(Obj.name);
+
+
+
+            for(i=0;i<stars.length;i++){
+
+                if (i<=Obj.id){stars[i].src="{{ asset('images/fullstar.jpg') }}"}
+                else{stars[i].src="{{ asset('images/emptystar.jpg') }}"}
+
+
+            }
+        }
+    </script>
+
+{% endblock %}

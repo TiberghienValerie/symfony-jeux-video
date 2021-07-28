@@ -18,12 +18,15 @@
             {% for contact in contactEntities %}
                 <tr>
                     <td>
-                        <a {% if contact.isVu==0 %} class="notvue" {% endif  %} href="{{ path('admin_contact_read', {'id': contact.id}) }}">{{ contact.objet }}</a>
+                        <a {% if contact.status==0 %} class="notvue" {% endif  %} href="{{ path('admin_contact_read', {'id': contact.id}) }}">
+                            {{ contact.objet | length>10 ? contact.objet|slice(0,10)~'...' : contact.objet}}
+                        </a>
                     </td>
                     <td>
-                        {% if contact.traitedAt is not null %}
+                        {% if contact.status==2 %}
 
                             {{ contact.traitedAt| date}}
+                            Message traité
 
                         {% endif %}
                             </td>
