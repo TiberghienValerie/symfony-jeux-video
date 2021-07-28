@@ -1,0 +1,30 @@
+{% extends 'layout/back.html.twig' %}
+
+{% block title %}Liste des forums {% endblock %}
+{% block body %}
+    <div class="container">
+        <a class="m-2 btn btn-primary" href="{{ path('admin_forum_add')}}">Add a new Forum</a>
+
+        <table class="table table-success table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for forum in forumEntities %}
+                <tr>
+                    <td>
+                        <a href="{{ path('admin_forum_read', {'id': forum.id}) }}">{{ forum.title }}</a>
+                    </td>
+                    <td>
+                        <a class="m-2 btn btn-primary" href="{{ path('admin_forum_update', {'id': forum.id}) }}">Update</a>
+                        <a class="m-2 btn btn-danger" href="{{ path('admin_forum_delete', {'id': forum.id}) }}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,12 +1,11 @@
-{% extends 'layout/front.html.twig' %}
-
-{% block title %}Ajout d'un forum{% endblock %}
-
+{% extends 'layout/back.html.twig' %}
+{% block title %}Add a new forum {% endblock %}
 {% block body %}
-    <h1 class="text-center">Ajout d'un forum </h1>
-    <a class="m-2 btn btn-primary" href="{{ path('forum_list') }}">Retour</a>
-    <div class="m-2 container card border-success">
-         {{ form_start(form) }}
+
+<div class="container">
+    <a class="btn btn-primary" href="{{ path('admin_game') }}">Retour</a>
+    <div class="m-2 container card">
+        {{ form_start(form) }}
         <div class="my-custom-class-for-errors">
             {{ form_errors(form) }}
         </div>
@@ -17,13 +16,25 @@
             </div>
         </div>
 
+
+
+
+
+
+
+
+
+
+
+
         <div class="row p-2">
             <div class="col">
-                {{ form_row(form.save, {'attr': {'class': 'btn btn-primary'}, 'label': 'Add' }) }}
+                {{ form_row(form.submit, {'attr': {'class': 'btn btn-primary'}, 'label': 'Add' }) }}
             </div>
         </div>
 
         {{ form_end(form) }}
     </div>
+</div>
 
 {% endblock %}

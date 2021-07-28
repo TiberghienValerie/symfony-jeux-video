@@ -1,9 +1,9 @@
 {% extends 'layout/back.html.twig' %}
-{% block title %}Add a new Post {% endblock %}
+{% block title %}Add a new game {% endblock %}
 {% block body %}
 
 <div class="container">
-    <a class="btn btn-primary" href="{{ path('admin_post') }}">Retour</a>
+    <a class="btn btn-primary" href="{{ path('admin_game') }}">Retour</a>
     <div class="m-2 container card">
         {{ form_start(form) }}
         <div class="my-custom-class-for-errors">
@@ -36,28 +36,15 @@
         <div class="row p-2">
             <div class="col">
                 {{ form_row(form.noteGlobal) }}
-                <img width="30px" height="30px" style="float:left;cursor:pointer;" src="{{ asset('images/emptystar.jpg') }}" name="star" id="0" onmouseover="fillstar(this)" onclick="vote(this,1)"/>
-                <img width="30px" height="30px"style="float:left;cursor:pointer;" src="{{ asset('images/emptystar.jpg') }}" name="star" id="1" onmouseover="fillstar(this)" onclick="vote(this,2)"/>
-                <img width="30px" height="30px" style="float:left;cursor:pointer;" src="{{ asset('images/emptystar.jpg') }}" name="star" id="2" onmouseover="fillstar(this)" onclick="vote(this,3)"/>
-                <img width="30px" height="30px" style="float:left;cursor:pointer;" src="{{ asset('images/emptystar.jpg') }}" name="star" id="3" onmouseover="fillstar(this)" onclick="vote(this,4)"/>
-
-                <img width="30px" height="30px" style="float:left;cursor:pointer;" src="{{ asset('images/emptystar.jpg') }}" name="star" id="4" onmouseover="fillstar(this)" onclick="vote(this,5)" />
-                <img width="30px" height="30px" style="float:left;cursor:pointer;" src="{{ asset('images/emptystar.jpg') }}" name="star" id="5" onmouseover="fillstar(this)" onclick="vote(this,6)" />
-                <img width="30px" height="30px" style="float:left;cursor:pointer;" src="{{ asset('images/emptystar.jpg') }}" name="star" id="6" onmouseover="fillstar(this)" onclick="vote(this,7)" />
-
-                <img width="30px" height="30px" style="float:left;cursor:pointer;" src="{{ asset('images/emptystar.jpg') }}" name="star" id="7" onmouseover="fillstar(this)" onclick="vote(this,8)" />
-                <img width="30px" height="30px" style="float:left;cursor:pointer;" src="{{ asset('images/emptystar.jpg') }}" name="star" id="8" onmouseover="fillstar(this)" onclick="vote(this,9)" />
-
-                <img width="30px" height="30px" style="cursor:pointer;" src="{{ asset('images/emptystar.jpg') }}" name="star"  id="9"  onmouseover="fillstar(this)" onclick="vote(this,10)" />
-                <br/><br/>
+                {% for i  in 1..10 %}
+                <img width="30px" height="30px" style="float:left;cursor:pointer;" src="{{ asset('images/emptystar.jpg') }}" name="star" id="{{ i }}" onmouseover="fillstar(this)" onclick="vote(this,{{ i }})"/>
+                {% endfor %}
             </div>
         </div>
 
-        <div class="row p-2">
-            <div class="col">
-                {{ form_row(form.forum) }}
-            </div>
-        </div>
+
+
+
 
         <div class="row p-2">
             <div class="col">

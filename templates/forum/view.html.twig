@@ -8,12 +8,25 @@
         <a class="m-2 btn btn-primary" href="{{ path('forum_list') }}">Retour</a>
         <div class="m-2 card border-success">
             <div class="card-body">
-                <h5 class="card-title">{{ forumEntity.title}}</h5>
-                <p>Date de création : {{ forumEntity.createdAt|date("d/m/Y h:i:s") }}</p>
+                <h5 class="card-title text-left">{{ forumEntity.title}}</h5>
+                {% for game in gameEntities %}
+                    <div class="row">
+                        <div class="col-4">
+                            <img width="100%" src="{{ asset('uploads/logo/' ~ game.pathImg) }}"/>
+                        </div>
+                        <div class="col-3">
+                            <h8>{{ game.description}}</h8>
+                        </div>
+                        <div class="col-5">
+                            <h5 class="text-end">{{ game.price}} €</h5>
+                        </div>
+                    </div>
+                    <h5 class="m-2 card-title text-end">Note Global : {{ game.noteGlobal}}/10</h5>
+                {% endfor %}
+                <p class="text-start">Date de création : {{ forumEntity.createdAt|date("d/m/Y h:i:s") }}</p>
             </div>
         </div>
         <br/>
-
         <h2 class="text-center">Liste des topics </h2>
         <a class="m-2 btn btn-primary" href="{{ path('topic_add', {'forum': forumEntity.id}) }}">Ajout</a>
         <table class="m-2 table table-success table-striped">
@@ -39,5 +52,9 @@
             {% endfor %}
             </tbody>
         </table>
+        <br/>
+
+
+
     </div>
 {% endblock %}

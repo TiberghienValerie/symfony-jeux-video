@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Forum;
 use App\Form\ForumType;
 use App\Repository\ForumRepository;
+use App\Repository\GameRepository;
 use App\Repository\TopicRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,6 +21,11 @@ class ForumController extends AbstractController
     private $forumRepository;
 
     /**
+     * @var GameRepository
+     */
+    private $gameRepository;
+
+    /**
      * @var TopicRepository
      */
     private $topicRepository;
@@ -32,12 +38,14 @@ class ForumController extends AbstractController
     /**
      * ForumController constructor.
      * @param ForumRepository $forumRepository
+     * @param GameRepository $gameRepository
      * @param TopicRepository $topicRepository
      * @param EntityManagerInterface $em
      */
-    public function __construct(ForumRepository $forumRepository, TopicRepository $topicRepository, EntityManagerInterface $em)
+    public function __construct(ForumRepository $forumRepository, GameRepository $gameRepository, TopicRepository $topicRepository, EntityManagerInterface $em)
     {
         $this->forumRepository = $forumRepository;
+        $this->gameRepository = $gameRepository;
         $this->topicRepository = $topicRepository;
         $this->em = $em;
     }
@@ -64,73 +72,14 @@ class ForumController extends AbstractController
             ['forum'=>$id]
         );
 
+        $gameEntities = $this->gameRepository->findBy(
+            ['forum'=>$id]
+        );
+
         return $this->render('forum/view.html.twig', [
             'forumEntity' => $forumEntity,
-            'topicEntities' => $topicEntities
-        ]);
-    }
-
-    /**
-     * @Route("/forum_add", name="forum_add")
-     */
-    public function add(Request $request):response
-    {
-
-        $forumEntity = new Forum();
-        $forumEntity->setCreatedAt(new \DateTime());
-
-        $form = $this->createForm(ForumType::class, $forumEntity);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $forumEntity = $form->getData();
-            $this->em->persist($forumEntity);
-            $this->em->flush();
-            return $this->redirectToRoute('forum_list');
-        }
-
-        return $this->render('forum/add.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/forum_delete/{id}", name="forum_delete")
-     */
-    public function delete(string $id, Request $request):response
-    {
-
-        $forumEntity = $this->forumRepository->find($id);
-        $this->em->remove($forumEntity);
-        $this->em->flush();
-        return $this->redirectToRoute('forum_list');
-
-    }
-
-    /**
-     * @Route("/forum_update/{id}", name="forum_update")
-     */
-    public function update(string $id, Request $request):response
-    {
-
-        $forumEntity = $this->forumRepository->find($id);
-        $forumEntity->setCreatedAt(new \DateTime());
-
-
-        $form = $this->createForm(ForumType::class, $forumEntity);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $forumEntity = $form->getData();
-            $this->em->persist($forumEntity);
-            $this->em->flush();
-            return $this->redirectToRoute('forum_list');
-        }
-
-        return $this->render('forum/update.html.twig', [
-            'form' => $form->createView(),
+            'topicEntities' => $topicEntities,
+            'gameEntities' => $gameEntities
         ]);
     }
 

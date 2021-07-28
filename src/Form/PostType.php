@@ -5,8 +5,10 @@ namespace App\Form;
 
 use App\Entity\Post;
 use App\Entity\PostCategory;
+use App\Enum\PostEnum;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -36,6 +38,13 @@ class PostType extends AbstractType
                 'class' => PostCategory::class,
                 'choice_label' => 'name'
             ])
+            ->add('status', ChoiceType::class, [
+                'choices' => array(
+                    'Fermé' => 0,
+                    'Ouvert' => 1
+                )
+                ]
+            )
             ->add('submit', SubmitType::class);
     }
 

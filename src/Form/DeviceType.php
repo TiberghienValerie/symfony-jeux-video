@@ -25,7 +25,7 @@ class DeviceType extends AbstractType
             ])
             ->add('pathLogo',FileType::class,[
                 'label' => 'Logo (Image file)',
-                'required' => true,
+                'required' => false,
                 'mapped' => false,
                 'constraints' => [
                     new Image([

@@ -1,9 +1,9 @@
 {% extends 'layout/back.html.twig' %}
-{% block title %}Add a new Post {% endblock %}
+{% block title %}Add a new forum {% endblock %}
 {% block body %}
 
 <div class="container">
-    <a class="btn btn-primary" href="{{ path('admin_post') }}">Retour</a>
+    <a class="btn btn-primary" href="{{ path('admin_forum') }}">Retour</a>
     <div class="m-2 container card">
         {{ form_start(form) }}
         <div class="my-custom-class-for-errors">
@@ -15,21 +15,17 @@
                 {{ form_row(form.title) }}
             </div>
         </div>
-        <div class="row p-2">
-            <div class="col">
-                {{ form_row(form.content) }}
-            </div>
-        </div>
-        <div class="row p-2">
-            <div class="col">
-                {{ form_row(form.postCategory) }}
-            </div>
-        </div>
-        <div class="row p-2">
-            <div class="col">
-                {{ form_row(form.status) }}
-            </div>
-        </div>
+
+
+
+
+
+
+
+
+
+
+
 
         <div class="row p-2">
             <div class="col">
@@ -40,7 +36,5 @@
         {{ form_end(form) }}
     </div>
 </div>
-
-
 
 {% endblock %}

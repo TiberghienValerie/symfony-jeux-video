@@ -23,7 +23,7 @@ class ForumType extends AbstractType
                         'message' => 'Please enter a title',
                     ])],
             ])
-            ->add('save',SubmitType::class)
+            ->add('submit',SubmitType::class)
         ;
     }
 

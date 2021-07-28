@@ -16,7 +16,7 @@
         {% for post in postEntities %}
             <tr>
                 <td>
-                   <a href="{{ path('admin_post_read', {'id': post.id}) }}">{{ post.title }}</a>
+                   <a href="{{ path('admin_post_read', {'id': post.id}) }}">{{ post.title }} - [{{ post.status }}]</a>
                 </td>
                 <td>
                     <a class="m-2 btn btn-primary" href="{{ path('admin_post_update', {'id': post.id}) }}">Update</a>

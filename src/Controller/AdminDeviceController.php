@@ -109,22 +109,29 @@ class AdminDeviceController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
 
             $photo = $form->get('pathLogo')->getData();
-            $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
-            $safeFilename = $slugger->slug($originalFilename);
-            $newFilename = $safeFilename.'.'.$photo->guessExtension();
-            if (!file_exists($this->getParameter('logo_directory').'/'.$newFilename)) {
-                try {
-                    $photo->move($this->getParameter('logo_directory'), $newFilename);
-                } catch (FileException $e) {
-                    // unable to upload the photo, give up
-                }
-            }
+            if($photo !== null) {
 
-            $ancienPhoto =  $deviceEntity->getPathLogo();
-            if (file_exists($this->getParameter('logo_directory').'/'.$ancienPhoto)) {
-                unlink($this->getParameter('logo_directory').'/'.$ancienPhoto);
+                $ancienPhoto = $deviceEntity->getPathLogo();
+                if (file_exists($this->getParameter('logo_directory') . '/' . $ancienPhoto)) {
+                    try {
+                        unlink($this->getParameter('logo_directory') . '/' . $ancienPhoto);
+                    } catch (FileException $e) {
+                        // unable to upload the photo, give up
+                    }
+                }
+
+                $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '.' . $photo->guessExtension();
+                if (!file_exists($this->getParameter('logo_directory') . '/' . $newFilename)) {
+                    try {
+                        $photo->move($this->getParameter('logo_directory'), $newFilename);
+                    } catch (FileException $e) {
+                        // unable to upload the photo, give up
+                    }
+                }
+                $deviceEntity->setPathLogo($newFilename);
             }
-            $deviceEntity->setPathLogo($newFilename);
 
             $this->em->persist($deviceEntity);
             $this->em->flush();

@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Forum;
 use App\Entity\Game;
+use App\Form\ForumType;
 use App\Form\GameType;
 use App\Repository\GameRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -86,7 +88,7 @@ class AdminGameController extends AbstractController
             }
             $gameEntity->setPathImg($newFilename);
             $gameEntity->setLaunchAt(new \DateTime());
-            //$gameEntity->setNoteGlobal(1);
+
 
             $this->em->persist($gameEntity);
             $this->em->flush();
@@ -105,28 +107,36 @@ class AdminGameController extends AbstractController
     {
         $gameEntity = $this->gameRepository->find($id);
 
-        $form = $this->createForm(GameType::class, $gameEntity);
+        $form = $this->createForm(Game_Admin_Type::class, $gameEntity);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
 
             $photo = $form->get('pathImg')->getData();
-            $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
-            $safeFilename = $slugger->slug($originalFilename);
-            $newFilename = $safeFilename.'.'.$photo->guessExtension();
-            if (!file_exists($this->getParameter('logo_directory').'/'.$newFilename)) {
-                try {
-                    $photo->move($this->getParameter('logo_directory'), $newFilename);
-                } catch (FileException $e) {
-                    // unable to upload the photo, give up
+            if($photo !== null) {
+
+                $ancienPhoto = $gameEntity->getPathImg();
+                if (file_exists($this->getParameter('logo_directory') . '/' . $ancienPhoto)) {
+                    try {
+                        unlink($this->getParameter('logo_directory') . '/' . $ancienPhoto);
+                    } catch (FileException $e) {
+                        // unable to upload the photo, give up
+                    }
                 }
+
+                $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '.' . $photo->guessExtension();
+                if (!file_exists($this->getParameter('logo_directory') . '/' . $newFilename)) {
+                    try {
+                        $photo->move($this->getParameter('logo_directory'), $newFilename);
+                    } catch (FileException $e) {
+                        // unable to upload the photo, give up
+                    }
+                }
+                $gameEntity->setPathImg($newFilename);
             }
-            $ancienPhoto =  $gameEntity->getPathImg();
-            if (file_exists($this->getParameter('logo_directory').'/'.$ancienPhoto)) {
-                unlink($this->getParameter('logo_directory').'/'.$ancienPhoto);
-            }
-            $gameEntity->setPathImg($newFilename);
 
 
             $this->em->persist($gameEntity);
@@ -136,7 +146,8 @@ class AdminGameController extends AbstractController
 
         return $this->render('admin_game/update.html.twig', [
             'form' => $form->CreateView(),
-            'logo' => $gameEntity->getPathImg()
+            'logo' => $gameEntity->getPathImg(),
+            'noteGlobal' => $gameEntity->getNoteGlobal(),
         ]);
     }
 
@@ -154,6 +165,37 @@ class AdminGameController extends AbstractController
         $this->em->flush();
         return $this->redirectToRoute('admin_game');
     }
+
+
+
+    /**
+     * @Route("/admin/forum-add-game/{id}", name="admin_forum_add_game")
+     */
+    public function add(string $id, Request $request):response
+    {
+
+        $gameEntity = $this->gameRepository->find($id);
+        $forumEntity = new Forum();
+        $forumEntity->setCreatedAt(new \DateTime());
+        $form = $this->createForm(ForumType::class, $forumEntity);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $forumEntity = $form->getData();
+            $this->em->persist($forumEntity);
+            $this->em->flush();
+
+            $gameEntity->setForum($forumEntity);
+            $this->em->persist($gameEntity);
+            $this->em->flush();
+
+            return $this->redirectToRoute('admin_game');
+        }
+
+        return $this->render('admin_game/create_forum.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
 
 
 

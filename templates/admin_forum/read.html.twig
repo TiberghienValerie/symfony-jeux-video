@@ -1,0 +1,17 @@
+{% extends 'layout/back.html.twig' %}
+
+{% block title %}{{ forumEntity.title}}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <a class="m-2 btn btn-primary" href="{{ path('admin_forum') }}">Retour</a>
+
+        <div class="m-2 card" style="width: 40rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ forumEntity.title}}</h5>
+                <p><i>Created At {{ forumEntity.createdAt|date() }}</i></p>
+            </div>
+        </div>
+        <br/>
+    </div>
+{% endblock %}

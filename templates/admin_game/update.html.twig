@@ -37,11 +37,29 @@
                 </div>
             </div>
 
+
             <div class="row p-2">
                 <div class="col">
-                    {{ form_row(form.forum) }}
+                    {{ form_row(form.noteGlobal) }}
+                    {% if noteGlobal==0 %}
+                        {% for i  in 1..10 %}
+                            <img width="30px" height="30px" src="{{ asset('images/EmptyStar.jpg') }}" name="star" id="{{ i }}" onmouseover="fillstar(this)" onclick="vote(this,{{ i }})" />
+                        {% endfor %}
+                    {% elseif noteGlobal==10 %}
+                        {% for i  in 1..10 %}
+                            <img width="30px" height="30px" src="{{ asset('images/FullStar.jpg') }}" name="star" id="{{ i }}" onmouseover="fillstar(this)" onclick="vote(this,{{ i }})"/>
+                        {% endfor %}
+                    {% else %}
+                        {% for i  in 1..noteGlobal%}
+                            <img width="30px" height="30px" src="{{ asset('images/FullStar.jpg') }}" name="star" id="{{ i }}" onmouseover="fillstar(this)" onclick="vote(this,{{ i }})" />
+                        {% endfor %}
+                        {% for i  in noteGlobal+1..10%}
+                            <img width="30px" height="30px" src="{{ asset('images/EmptyStar.jpg') }}" name="star" id="{{ i }}" onmouseover="fillstar(this)" onclick="vote(this,{{ i }})" />
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
+
 
             <div class="row p-2">
                 <div class="col">
@@ -64,6 +82,30 @@
             {{ form_end(form) }}
         </div>
     </div>
+
+    <script>
+        function vote(Obj, val) {
+
+            var champ = Obj.parentElement.children.namedItem('game_noteGlobal');
+            champ.value = val;
+            console.log(champ.value);
+
+        }
+
+        function fillstar(Obj){
+            var stars=document.getElementsByName(Obj.name);
+
+
+
+            for(i=0;i<stars.length;i++){
+
+                if (i<=Obj.id){stars[i].src="{{ asset('images/fullstar.jpg') }}"}
+                else{stars[i].src="{{ asset('images/emptystar.jpg') }}"}
+
+
+            }
+        }
+    </script>
 
 
 {% endblock %}

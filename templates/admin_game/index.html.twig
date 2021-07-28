@@ -21,6 +21,10 @@
                 <td>
                   <a class="m-2 btn btn-primary" href="{{ path('admin_game_update', {'id': game.id}) }}">Update</a>
                     <a class="m-2 btn btn-danger" href="{{ path('admin_game_delete', {'id': game.id}) }}">Delete</a>
+
+                    {% if game.forum == null or game.forum.id == null %}
+                        <a class="m-2 btn btn-success" href="{{ path('admin_forum_add_game', {'id': game.id}) }}">Ajout un forum pour ce jeu</a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

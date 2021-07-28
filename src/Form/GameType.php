@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Device;
-use App\Entity\Forum;
 use App\Entity\Game;
 use App\Entity\GameCategory;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -19,6 +18,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Positive;
+
+
 
 class GameType extends AbstractType
 {
@@ -52,7 +53,7 @@ class GameType extends AbstractType
             )
             ->add('pathImg',FileType::class,[
         'label' => 'Logo (Image file)',
-        'required' => true,
+        'required' => false,
         'mapped' => false,
         'constraints' => [
             new Image([
@@ -66,14 +67,7 @@ class GameType extends AbstractType
             ])
         ],
     ])
-            ->add('forum', EntityType::class, [
-                'class' => Forum::class,
-                'choice_label' => 'title',
-                'multiple' => false,
-                'expanded' => false
-            ])
             ->add('noteGlobal', HiddenType::class, [
-                'data' => 0,
             ])
             ->add('gameCategory', EntityType::class, [
                 'class' => GameCategory::class,
