@@ -39,10 +39,8 @@ class PostType extends AbstractType
                 'choice_label' => 'name'
             ])
             ->add('status', ChoiceType::class, [
-                'choices' => array(
-                    'Fermé' => 0,
-                    'Ouvert' => 1
-                )
+                'choices' => PostEnum::getEnum()
+
                 ]
             )
             ->add('submit', SubmitType::class);

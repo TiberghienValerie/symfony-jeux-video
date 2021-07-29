@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Forum;
 use App\Entity\Topic;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -47,4 +48,16 @@ class TopicRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return Topic[] Returns an array of message objects
+     */
+    public function findTopic(Forum $forum) {
+        return $this->createQueryBuilder('t')
+            ->innerJoin('t.forum', 'f')
+            ->where('f.id = :forum_id')
+            ->setParameter('forum_id', $forum->getId())
+
+            ;
+    }
 }

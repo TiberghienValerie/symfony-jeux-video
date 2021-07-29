@@ -12,7 +12,7 @@
                 {% for game in gameEntities %}
                     <div class="row">
                         <div class="col-4">
-                            <img width="100%" src="{{ asset('uploads/logo/' ~ game.pathImg) }}"/>
+                            <img width="50%" src="{{ asset('uploads/logo/' ~ game.pathImg) }}"/>
                         </div>
                         <div class="col-3">
                             <h8>{{ game.description}}</h8>
@@ -29,15 +29,21 @@
         <br/>
         <h2 class="text-center">Liste des topics </h2>
         <a class="m-2 btn btn-primary" href="{{ path('topic_add', {'forum': forumEntity.id}) }}">Ajout</a>
-        <table class="m-2 table table-success table-striped">
+        {# total items count #}
+        <div class="count">
+            <h3> Number of Topic : {{ pagination.getTotalItemCount }} </h3>
+        </div>
+        <table class="m-2 table-hover table table-success table-striped">
             <thead>
             <tr>
-                <th scope="col">Title</th>
+                <th{% if pagination.isSorted('t.Title') %} class="sorted"{% endif %}>
+                    {{ knp_pagination_sortable(pagination, 'Title', 't.title') }}
+                </th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
-            {% for topic in topicEntities %}
+            {% for topic in pagination %}
                 <tr>
                     <td>
                         <img src="{{ asset('uploads/logo/' ~ topic.pathLogo) }}" />
@@ -52,9 +58,9 @@
             {% endfor %}
             </tbody>
         </table>
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
         <br/>
-
-
-
     </div>
 {% endblock %}

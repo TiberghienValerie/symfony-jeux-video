@@ -8,6 +8,7 @@ use App\Repository\ForumRepository;
 use App\Repository\GameRepository;
 use App\Repository\TopicRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,12 +66,15 @@ class ForumController extends AbstractController
     /**
      * @Route("/forum_view/{id}", name="forum_view")
      */
-    public function view(int $id): Response
+    public function view(PaginatorInterface $paginator,Request $request,int $id): Response
     {
         $forumEntity = $this->forumRepository->find($id);
-        $topicEntities = $this->topicRepository->findBy(
-            ['forum'=>$id]
-        );
+        $qb = $this->topicRepository->findTopic($forumEntity);
+         $pagination = $paginator->paginate(
+             $qb, /* query NOT result */
+             $request->query->getInt('page', 1), /*page number*/
+             10 /*limit per page*/
+         );
 
         $gameEntities = $this->gameRepository->findBy(
             ['forum'=>$id]
@@ -78,7 +82,7 @@ class ForumController extends AbstractController
 
         return $this->render('forum/view.html.twig', [
             'forumEntity' => $forumEntity,
-            'topicEntities' => $topicEntities,
+            'pagination' => $pagination,
             'gameEntities' => $gameEntities
         ]);
     }

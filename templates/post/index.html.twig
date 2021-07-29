@@ -9,7 +9,7 @@
         <div class="count">
             <h3> Number of Post : {{ pagination.getTotalItemCount }} </h3>
         </div>
-        <table class="table table-success table-striped">
+        <table class="table table-hover table-success table-striped">
             <thead>
            <tr>
                <th{% if pagination.isSorted('p.Title') %} class="sorted"{% endif %}>
@@ -21,7 +21,7 @@
             {% for post in pagination %}
                 <tr>
                     <td>
-                        <a href="{{ path('post_read', {'id': post.id}) }}">{{ post.title }} - {{ post.status }}</a>
+                        <a href="{{ path('post_read', {'id': post.id}) }}">{{ post.title }} - [{{ post.status|getStringValue(post.status) }}]</a>
                     </td>
                 </tr>
             {% endfor %}

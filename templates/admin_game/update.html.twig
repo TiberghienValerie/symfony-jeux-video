@@ -43,18 +43,18 @@
                     {{ form_row(form.noteGlobal) }}
                     {% if noteGlobal==0 %}
                         {% for i  in 1..10 %}
-                            <img width="30px" height="30px" src="{{ asset('images/EmptyStar.jpg') }}" name="star" id="{{ i }}" onmouseover="fillstar(this)" onclick="vote(this,{{ i }})" />
+                            <img width="30px" height="30px" src="{{ asset('build/image/EmptyStar.jpg') }}" name="star" id="{{ i }}" onmouseover="fillstar(this)" onclick="vote(this,{{ i }})" />
                         {% endfor %}
                     {% elseif noteGlobal==10 %}
                         {% for i  in 1..10 %}
-                            <img width="30px" height="30px" src="{{ asset('images/FullStar.jpg') }}" name="star" id="{{ i }}" onmouseover="fillstar(this)" onclick="vote(this,{{ i }})"/>
+                            <img width="30px" height="30px" src="{{ asset('build/image/FullStar.jpg') }}" name="star" id="{{ i }}" onmouseover="fillstar(this)" onclick="vote(this,{{ i }})"/>
                         {% endfor %}
                     {% else %}
                         {% for i  in 1..noteGlobal%}
-                            <img width="30px" height="30px" src="{{ asset('images/FullStar.jpg') }}" name="star" id="{{ i }}" onmouseover="fillstar(this)" onclick="vote(this,{{ i }})" />
+                            <img width="30px" height="30px" src="{{ asset('build/image/FullStar.jpg') }}" name="star" id="{{ i }}" onmouseover="fillstar(this)" onclick="vote(this,{{ i }})" />
                         {% endfor %}
                         {% for i  in noteGlobal+1..10%}
-                            <img width="30px" height="30px" src="{{ asset('images/EmptyStar.jpg') }}" name="star" id="{{ i }}" onmouseover="fillstar(this)" onclick="vote(this,{{ i }})" />
+                            <img width="30px" height="30px" src="{{ asset('build/image/EmptyStar.jpg') }}" name="star" id="{{ i }}" onmouseover="fillstar(this)" onclick="vote(this,{{ i }})" />
                         {% endfor %}
                     {% endif %}
                 </div>
@@ -99,8 +99,8 @@
 
             for(i=0;i<stars.length;i++){
 
-                if (i<=Obj.id){stars[i].src="{{ asset('images/fullstar.jpg') }}"}
-                else{stars[i].src="{{ asset('images/emptystar.jpg') }}"}
+                if (i<=Obj.id){stars[i].src="{{ asset('build/image/fullstar.jpg') }}"}
+                else{stars[i].src="{{ asset('build/image/emptystar.jpg') }}"}
 
 
             }

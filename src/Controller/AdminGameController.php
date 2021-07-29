@@ -48,6 +48,7 @@ class AdminGameController extends AbstractController
         return $this->render('admin_game/index.html.twig', [
             'gameEntities' => $gameEntities
         ]);
+
     }
 
     /**
@@ -174,7 +175,9 @@ class AdminGameController extends AbstractController
     public function add(string $id, Request $request):response
     {
 
+
         $gameEntity = $this->gameRepository->find($id);
+
         $forumEntity = new Forum();
         $forumEntity->setCreatedAt(new \DateTime());
         $form = $this->createForm(ForumType::class, $forumEntity);
@@ -187,6 +190,8 @@ class AdminGameController extends AbstractController
             $gameEntity->setForum($forumEntity);
             $this->em->persist($gameEntity);
             $this->em->flush();
+
+
 
             return $this->redirectToRoute('admin_game');
         }

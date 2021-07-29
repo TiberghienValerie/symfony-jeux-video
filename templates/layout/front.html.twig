@@ -3,8 +3,7 @@
     <header>
         <div class="p-2 container">
             <nav class="navbar text-right navbar-expand-lg navbar-white bg-white">
-                <img width="25%" class="text-left" src="{{ asset('/images/bandeau.jpg') }}" />
-
+                <img width="25%" class="text-left" src="{{ asset('/build/image/bandeau.jpg') }}" />
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -25,25 +24,30 @@
                                     <li>
                                         <a class="dropdown-item" href="{{ path('post') }}">Post</a>
                                     </li>
+
+                                    {% if app.user is not null %}
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li>
+                                            <a class="dropdown-item" aria-current="contact" href="{{ path('contact') }}">Nous contacter</a>
+                                        </li>
+
+                                        {% if is_granted('ROLE_WORKER') == true %}
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li>
+                                                <a class="dropdown-item" aria-current="administration" href="{{ path('admin') }}">Administration</a>
+                                            </li>
+                                        {% endif %}
+                                    {% endif %}
                                 </ul>
                             </li>
-                            {% if app.user is not null %}
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="contact" href="{{ path('contact') }}">Nous contacter</a>
-                            </li>
-                                {% if is_granted('ROLE_WORKER') == true %}
-                                    <li class="nav-item">
-                                    <a class="nav-link active" aria-current="administration" href="{{ path('admin') }}">Administration</a>
-                                    </li>
-                                {% endif %}
-                            {% endif %}
+
                         </ul>
                     </div>
 
                     {% if app.user is null %}
-                        <h5><a href="{{ path('app_login') }}">Connexion</a></h5>
+                        <h5 class="text-end"><a href="{{ path('app_login') }}">Connexion</a></h5>
                     {% else %}
-                        <h5>Bienvenue {{ app.user.firstName }}  {{ app.user.lastName }} - <a href="{{ path('app_logout') }}"> Déconnexion</a></h5>
+                        <h5 class="text-end">{{ app.user.firstName }}  {{ app.user.lastName }} <img width="5%" class="text-center" src="{{ asset('/uploads/avatar/OIP.jpg') }}" /> - <a href="{{ path('app_logout') }}"> Déconnexion</a></h5>
                     {% endif %}
 
             </nav>

@@ -36,18 +36,18 @@
                 <p>Note global : </p>
                 {% if gameEntity.NoteGlobal==0 %}
                     {% for i  in 1..10 %}
-                        <img width="30px" height="30px" src="{{ asset('images/EmptyStar.jpg') }}" />
+                        <img width="30px" height="30px" src="{{ asset('build/image/EmptyStar.jpg') }}" />
                     {% endfor %}
                 {% elseif gameEntity.NoteGlobal==10 %}
                     {% for i  in 1..10 %}
-                        <img width="30px" height="30px" src="{{ asset('images/FullStar.jpg') }}" />
+                        <img width="30px" height="30px" src="{{ asset('build/image/FullStar.jpg') }}" />
                     {% endfor %}
                 {% else %}
                     {% for i  in 1..gameEntity.NoteGlobal%}
-                        <img width="30px" height="30px" src="{{ asset('images/FullStar.jpg') }}" />
+                        <img width="30px" height="30px" src="{{ asset('build/image/FullStar.jpg') }}" />
                     {% endfor %}
                     {% for i  in gameEntity.NoteGlobal+1..10%}
-                        <img width="30px" height="30px" src="{{ asset('images/EmptyStar.jpg') }}" />
+                        <img width="30px" height="30px" src="{{ asset('build/image/EmptyStar.jpg') }}" />
                     {% endfor %}
                 {% endif %}
             </div>
