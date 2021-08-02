@@ -1,0 +1,70 @@
+{% extends 'layout/back.html.twig' %}
+{% block title %}update a new propietaire {% endblock %}
+{% block body %}
+
+    <div class="container">
+        <a class="btn btn-primary" href="{{ path('admin_proprietaire') }}">Retour</a>
+        <div class="m-2 container card">
+            {{ form_start(form) }}
+            <div class="my-custom-class-for-errors">
+                {{ form_errors(form) }}
+            </div>
+
+            <div class="row p-2">
+                <div class="col">
+                    {{ form_row(form.raisonSociale) }}
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col">
+                    {{ form_row(form.adresse1) }}
+                </div>
+            </div>
+
+            <div class="row p-2">
+                <div class="col">
+                    {{ form_row(form.adresse2) }}
+                </div>
+            </div>
+
+            <div class="row p-2">
+                <div class="col">
+                    {{ form_row(form.adresse3) }}
+                </div>
+            </div>
+
+            <div class="row p-2">
+                <div class="col">
+                    {{ form_row(form.cp) }}
+                </div>
+            </div>
+
+            <div class="row p-2">
+                <div class="col">
+                    {{ form_row(form.ville) }}
+                </div>
+            </div>
+
+            <div class="row p-2">
+                <div class="col">
+                    {{ form_row(form.telephone) }}
+                </div>
+            </div>
+
+            <div class="row p-2">
+                <div class="col">
+                    {{ form_row(form.email) }}
+                </div>
+            </div>
+
+            <div class="row p-2">
+                <div class="col">
+                    {{ form_row(form.submit, {'attr': {'class': 'btn btn-primary'}, 'label': 'Update' }) }}
+                </div>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}

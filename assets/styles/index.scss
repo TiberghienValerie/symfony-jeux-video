@@ -1,3 +1,4 @@
+@import '~@fortawesome/fontawesome-free/css/all.css';
 label {
   margin:10px;
 }
@@ -40,6 +41,13 @@ a.notvue {
 
 .current, .page, .next, .previous, .first, .last {
   font-size:30px;
+}
+
+footer {
+  text-align: center;
+  padding: 3px;
+  background-color: DarkSalmon;
+  color: white;
 }
 
 

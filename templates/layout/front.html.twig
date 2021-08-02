@@ -61,4 +61,20 @@
 {% endblock %}
 
 {% block footer  %}
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-6 text-start">
+                    <p>Nombre de posts : {{ nb_post() }}</p>
+                    <p>Nombre de games : {{ nb_game() }}</p>
+                </div>
+                <div class="col-6 text-start">
+                    {{ generate_coordonnees_html()|raw }}
+                </div>
+
+            </div>
+        </div>
+
+
+    </footer>
 {% endblock %}

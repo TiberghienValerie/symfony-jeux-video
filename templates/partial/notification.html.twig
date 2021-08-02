@@ -1,0 +1,7 @@
+{% for contact in contactEntities %}
+
+    <a {% if contact.status==0 %} class="notvue" {% endif  %} href="{{ path('admin_contact_read', {'id': contact.id}) }}">
+        {{ contact.objet | length>10 ? contact.objet|slice(0,10)~'...' : contact.objet}}
+    </a><br/>
+
+{% endfor %}

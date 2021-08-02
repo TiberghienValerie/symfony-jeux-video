@@ -1,0 +1,22 @@
+{% extends 'layout/back.html.twig' %}
+
+{% block title %}{{ proprietaireEntity.raisonSociale}}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <a class="m-2 btn btn-primary" href="{{ path('admin_proprietaire') }}">Retour</a>
+
+        <div class="m-2 card" style="width: 40rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ proprietaireEntity.raisonSociale}}</h5>
+                <p>{{ proprietaireEntity.adresse1}}</p>
+                <p>{{ proprietaireEntity.adresse2}}</p>
+                <p>{{ proprietaireEntity.adresse3}}</p>
+                <p>{{ proprietaireEntity.cp}}  {{ proprietaireEntity.ville}}</p>
+                <p>Téléphone : {{  proprietaireEntity.telephone}} </p>
+                <p>Email : {{ proprietaireEntity.email}} </p>
+            </div>
+        </div>
+        <br/>
+    </div>
+{% endblock %}

@@ -24,6 +24,10 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li>
+                                        <a class="dropdown-item" href="{{ path('admin_proprietaire') }}">Proprietaire</a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
                                         <a class="dropdown-item" href="{{ path('admin_post_category') }}">Post Category</a>
                                     </li>
                                     <li><hr class="dropdown-divider"></li>
@@ -57,7 +61,36 @@
                             </li>
                         </ul>
                     </div>
-                <h5 class="text-end">Bienvenue {{ app.user.firstName }}  {{ app.user.lastName }} <img width="5%" class="text-center" src="{{ asset('/uploads/avatar/OIP.jpg') }}" /> - <a href="{{ path('app_logout') }}"> Déconnexion</a></h5>
+
+
+                <h5 class="text-end">
+                    {% set nbMessageNomLu = nb_message_non_lu() %}
+                    {% if nbMessageNomLu != 0 %}
+
+                        {{ nbMessageNomLu }} notification(s) <i class="far fa-bell" type="button" data-bs-toggle="modal" data-bs-target="#notificationModal">
+                        </i>
+                    &nbsp;&nbsp;
+
+                        <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="notificationModalLabel"> {{ nbMessageNomLu  }} Notification(s)</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-start">
+                                        {{  generate_notification_html()|raw}}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    {% endif %}
+
+
+                    Bienvenue {{ app.user.firstName }}  {{ app.user.lastName }} <img width="5%" class="text-center" src="{{ asset('/uploads/avatar/OIP.jpg') }}" /> - <a href="{{ path('app_logout') }}"> Déconnexion</a></h5>
             </nav>
 
         </div>

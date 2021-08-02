@@ -1,0 +1,13 @@
+{%  for proprietaireEntity in proprietaireEntities %}
+        <p>{{ proprietaireEntity.raisonSociale }}</p>
+        <p> {{ proprietaireEntity.adresse1 }}</p>
+        <p>{{ proprietaireEntity.adresse2 }}</p>
+        <p> {{ proprietaireEntity.adresse3 }}</p>
+        <p> {{ proprietaireEntity.cp }} {{ proprietaireEntity.ville }}</p>
+        <p>
+                Téléphone : {{ proprietaireEntity.telephone }}
+        </p>
+        <p>
+                Email : {{ proprietaireEntity.email }}
+        </p>
+{% endfor %}

@@ -21,7 +21,9 @@
                             <h5 class="text-end">{{ game.price}} €</h5>
                         </div>
                     </div>
-                    <h5 class="m-2 card-title text-end">Note Global : {{ game.noteGlobal}}/10</h5>
+
+                    <h5 class="m-2 card-title text-end">Note Global :
+                        {{ generate_etoile_html(game)|raw }}</h5>
                 {% endfor %}
                 <p class="text-start">Date de création : {{ forumEntity.createdAt|date("d/m/Y h:i:s") }}</p>
             </div>

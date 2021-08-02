@@ -1,0 +1,16 @@
+{%if gameEntity.noteGlobal == 0 %}
+    {% for i in 1..10 %}
+        <i class="far fa-star"></i>
+    {% endfor %}
+{% elseif gameEntity.noteGlobal == 10 %}
+    {% for i in 1..10 %}
+        <i class="fas fa-star"></i>
+    {% endfor %}
+{% else%}
+        {% for i in 1..gameEntity.noteGlobal %}
+            <i class="fas fa-star"></i>
+        {% endfor %}
+        {% for i in gameEntity.noteGlobal+1..10 %}
+            <i class="far fa-star"></i>
+        {% endfor %}
+{%  endif %}
