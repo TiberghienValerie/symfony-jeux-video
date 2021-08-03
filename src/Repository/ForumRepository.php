@@ -47,4 +47,11 @@ class ForumRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return Forum[] Returns an array of forum objects
+     */
+    public function findForum() {
+        return $this->createQueryBuilder('f');
+    }
 }

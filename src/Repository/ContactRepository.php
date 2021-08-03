@@ -47,4 +47,11 @@ class ContactRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return Contact[] Returns an array of message objects
+     */
+    public function findContact() {
+        return $this->createQueryBuilder('c');
+    }
 }

@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Forum;
 use App\Form\ForumType;
+use App\Form\RechercheType;
 use App\Repository\ForumRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,13 +40,31 @@ class AdminForumController extends AbstractController
     /**
      * @Route("/admin/forum", name="admin_forum")
      */
-    public function index(): Response
+        public function index(PaginatorInterface $paginator,  Request $request): Response
     {
+        $qb = $this->forumRepository->findForum();
 
-        $forumEntities = $this->forumRepository->findAll();
+        $form = $this->createForm(RechercheType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $qb->where('f.title LIKE :title')
+                ->setParameter('title', '%'.$data['objet'].'%');
+        }
+        $pagination = $paginator->paginate(
+            $qb, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            10 /*limit per page*/
+        );
+
         return $this->render('admin_forum/index.html.twig', [
-            'forumEntities' => $forumEntities
+            'pagination' => $pagination,
+            'form' => $form->createView()
         ]);
+
+
+
 
     }
 

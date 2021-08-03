@@ -3,9 +3,29 @@
 {% block title %}Liste des Devices {% endblock %}
 {% block body %}
 <div class="container">
-    <a class="m-2 btn btn-primary" href="{{ path('admin_device_create')}}">Add a new Device</a>
+    <div class=" card">
+        <div class="card-body">
+            {{ form_start(form) }}
+            <div class="row p-2">
+                <div class="col">
+                    {{ form_row(form.objet) }}
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col">
+                    {{ form_row(form.submit, {'attr': {'class': 'btn btn-primary'}, 'label': 'Rechercher' }) }}
+                </div>
+            </div>
 
-    <table class="table table-success table-striped">
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    <a class="m-2 btn btn-primary" href="{{ path('admin_device_create')}}">Add a new Device</a>
+    <div class="count">
+        <h3> Number of Device : {{ pagination.getTotalItemCount }} </h3>
+    </div>
+    <table class="table table-hover table-success table-striped">
         <thead>
         <tr>
             <th scope="col">Name</th>
@@ -13,7 +33,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for device in deviceEntities %}
+        {% for device in pagination %}
             <tr>
                 <td>
                    <a href="{{ path('admin_device_read', {'id': device.id}) }}">{{ device.name }}</a>
@@ -26,5 +46,8 @@
         {% endfor %}
         </tbody>
     </table>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 </div>
 {% endblock %}

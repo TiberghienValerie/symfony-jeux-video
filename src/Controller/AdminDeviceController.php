@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Device;
 use App\Form\DeviceType;
+use App\Form\RechercheType;
 use App\Repository\DeviceRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,13 +42,30 @@ class AdminDeviceController extends AbstractController
     /**
      * @Route("/admin/device", name="admin_device")
      */
-    public function index(): Response
+    public function index(PaginatorInterface $paginator,  Request $request): Response
     {
-        $deviceEntities =  $this->devicerepository->findAll();
+        $qb = $this->devicerepository->findDevice();
+
+        $form = $this->createForm(RechercheType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $qb->where('d.name LIKE :name')
+                ->setParameter('name', '%'.$data['objet'].'%');
+        }
+        $pagination = $paginator->paginate(
+            $qb, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            10 /*limit per page*/
+        );
 
         return $this->render('admin_device/index.html.twig', [
-            'deviceEntities' => $deviceEntities
+            'pagination' => $pagination,
+            'form' => $form->createView()
         ]);
+
+
     }
 
 

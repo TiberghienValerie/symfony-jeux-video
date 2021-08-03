@@ -3,9 +3,27 @@
 {% block title %}Liste des message via contact{% endblock %}
 {% block body %}
     <div class="container">
+        <div class=" card">
+            <div class="card-body">
+                {{ form_start(form) }}
+                <div class="row p-2">
+                    <div class="col">
+                        {{ form_row(form.objet) }}
+                    </div>
+                </div>
+                <div class="row p-2">
+                    <div class="col">
+                        {{ form_row(form.submit, {'attr': {'class': 'btn btn-primary'}, 'label': 'Rechercher' }) }}
+                    </div>
+                </div>
 
-
-        <table class="table table-success table-striped">
+                {{ form_end(form) }}
+            </div>
+        </div>
+        <div class="count">
+            <h3> Number of Message : {{ pagination.getTotalItemCount }} </h3>
+        </div>
+        <table class="table table-hover table-success table-striped">
             <thead>
             <tr>
                 <th scope="col">Objet</th>
@@ -15,7 +33,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for contact in contactEntities %}
+            {% for contact in pagination %}
                 <tr>
                     <td>
                         <a {% if contact.status==0 %} class="notvue" {% endif  %} href="{{ path('admin_contact_read', {'id': contact.id}) }}">
@@ -34,5 +52,8 @@
             {% endfor %}
             </tbody>
         </table>
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
     </div>
 {% endblock %}

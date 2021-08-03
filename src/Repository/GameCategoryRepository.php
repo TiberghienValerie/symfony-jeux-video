@@ -47,4 +47,11 @@ class GameCategoryRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return GameCategory[] Returns an array of game category objects
+     */
+    public function findGameCategory() {
+        return $this->createQueryBuilder('gc');
+    }
 }

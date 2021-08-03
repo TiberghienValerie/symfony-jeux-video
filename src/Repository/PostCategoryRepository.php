@@ -47,4 +47,11 @@ class PostCategoryRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return PostCategory[] Returns an array of post category objects
+     */
+    public function findPostCategory() {
+        return $this->createQueryBuilder('pc');
+    }
 }

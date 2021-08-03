@@ -47,4 +47,11 @@ class GameRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return Game[] Returns an array of game objects
+     */
+    public function findGame() {
+        return $this->createQueryBuilder('g');
+    }
 }

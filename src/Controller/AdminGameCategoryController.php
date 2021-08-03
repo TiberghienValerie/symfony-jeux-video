@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\GameCategory;
 use App\Form\GameCategoryType;
+use App\Form\RechercheType;
 use App\Repository\GameCategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,14 +40,33 @@ class AdminGameCategoryController extends AbstractController
     /**
      * @Route("/admin/game-category", name="admin_game_category")
      */
-    public function index(): Response
+
+        public function index(PaginatorInterface $paginator,  Request $request): Response
     {
-        $gameCategoryEntities = $this->gameCategoryRepository->findAll();
+        $qb = $this->gameCategoryRepository->findGameCategory();
+
+        $form = $this->createForm(RechercheType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $qb->where('gc.name LIKE :name')
+                ->setParameter('name', '%'.$data['objet'].'%');
+        }
+        $pagination = $paginator->paginate(
+            $qb, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            10 /*limit per page*/
+        );
 
         return $this->render('admin_game_category/index.html.twig', [
-            'gameCategoryEntities' => $gameCategoryEntities
+            'pagination' => $pagination,
+            'form' => $form->createView()
         ]);
+
+
     }
+
 
 
 

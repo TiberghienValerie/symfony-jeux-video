@@ -3,9 +3,29 @@
 {% block title %}Liste des Post Category{% endblock %}
 {% block body %}
 <div class="container">
-    <a class="m-2 btn btn-primary" href="{{ path('admin_post_category_create')}}">Add a new Post Category</a>
+    <div class=" card">
+        <div class="card-body">
+            {{ form_start(form) }}
+            <div class="row p-2">
+                <div class="col">
+                    {{ form_row(form.objet) }}
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col">
+                    {{ form_row(form.submit, {'attr': {'class': 'btn btn-primary'}, 'label': 'Rechercher' }) }}
+                </div>
+            </div>
 
-    <table class="table table-success table-striped">
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    <a class="m-2 btn btn-primary" href="{{ path('admin_post_category_create')}}">Add a new Post Category</a>
+    <div class="count">
+        <h3> Number of post Category : {{ pagination.getTotalItemCount }} </h3>
+    </div>
+    <table class="table table-hover table-success table-striped">
         <thead>
         <tr>
             <th scope="col">Name</th>
@@ -13,7 +33,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for postCategory in postCategoryEntities %}
+        {% for postCategory in pagination %}
             <tr>
                 <td>
                    <a href="{{ path('admin_post_category_read', {'id': postCategory.id}) }}">{{ postCategory.name }}</a>
@@ -26,5 +46,8 @@
         {% endfor %}
         </tbody>
     </table>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 </div>
 {% endblock %}

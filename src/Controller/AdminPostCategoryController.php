@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\PostCategory;
 use App\Form\PostCategoryType;
+use App\Form\RechercheType;
 use App\Repository\PostCategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,13 +40,29 @@ class AdminPostCategoryController extends AbstractController
     /**
      * @Route("/admin/post-category", name="admin_post_category")
      */
-    public function index(): Response
+    public function index(PaginatorInterface $paginator,  Request $request): Response
     {
-        $postCategoryEntities = $this->postCategoryRepository->findAll();
+        $qb = $this->postCategoryRepository->findPostCategory();
+
+        $form = $this->createForm(RechercheType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $qb->where('pc.name LIKE :name')
+                ->setParameter('name', '%'.$data['objet'].'%');
+        }
+        $pagination = $paginator->paginate(
+            $qb, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            10 /*limit per page*/
+        );
 
         return $this->render('admin_post_category/index.html.twig', [
-            'postCategoryEntities' => $postCategoryEntities
+            'pagination' => $pagination,
+            'form' => $form->createView()
         ]);
+
     }
 
     /**

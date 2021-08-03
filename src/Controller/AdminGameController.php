@@ -6,8 +6,11 @@ use App\Entity\Forum;
 use App\Entity\Game;
 use App\Form\ForumType;
 use App\Form\GameType;
+use App\Form\RechercheGameType;
+use App\Form\RechercheType;
 use App\Repository\GameRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,12 +45,38 @@ class AdminGameController extends AbstractController
     /**
      * @Route("/admin/game", name="admin_game")
      */
-    public function index(): Response
+    public function index(PaginatorInterface $paginator,  Request $request): Response
     {
-        $gameEntities = $this->gameRepository->findAll();
+        $qb = $this->gameRepository->findGame();
+
+        $form = $this->createForm(RechercheGameType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $array = '';
+            for($i=0;$i<sizeof($data['gameCategory']);$i++) {
+                $array .= $data['gameCategory'][$i]->getId().',';
+            }
+            $qb->innerJoin('g.gameCategory', 'gc')
+            ->where('g.title LIKE :title')
+            ->andWhere('gc.id IN (:array)')
+            ->setParameter('title', '%'.$data['objet'].'%')
+            ->setParameter('array', substr($array, 0, strlen($array)-1));
+
+
+        }
+        $pagination = $paginator->paginate(
+            $qb, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            10 /*limit per page*/
+        );
+
         return $this->render('admin_game/index.html.twig', [
-            'gameEntities' => $gameEntities
+            'pagination' => $pagination,
+            'form' => $form->createView()
         ]);
+
 
     }
 
@@ -108,7 +137,7 @@ class AdminGameController extends AbstractController
     {
         $gameEntity = $this->gameRepository->find($id);
 
-        $form = $this->createForm(Game_Admin_Type::class, $gameEntity);
+        $form = $this->createForm(GameType::class, $gameEntity);
 
         $form->handleRequest($request);
 
