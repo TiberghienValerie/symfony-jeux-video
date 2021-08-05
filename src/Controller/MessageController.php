@@ -57,7 +57,6 @@ class MessageController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $this->em->persist($messageEntity);
             $this->em->flush();
             return $this->redirectToRoute('topic_view', ['id' => $messageEntity->getTopic()->getId()]);

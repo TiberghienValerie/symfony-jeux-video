@@ -55,4 +55,15 @@ class PostRepository extends ServiceEntityRepository
     public function findPost() {
         return $this->createQueryBuilder('p');
     }
+
+    /**
+     * @return Post[] Returns an array of post objects
+     */
+    public function findPostByDate($date) {
+        return $this->createQueryBuilder('p')
+            ->where('p.createdAt < :date')
+            ->setparameter(':date', $date)
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -69,6 +69,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $contacts;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nbFaute;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isBanni;
+
+
+
     public function __construct()
     {
         $this->Messages = new ArrayCollection();
@@ -290,4 +302,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getNbFaute(): ?int
+    {
+        return $this->nbFaute;
+    }
+
+    public function setNbFaute(?int $nbFaute): self
+    {
+        $this->nbFaute = $nbFaute;
+
+        return $this;
+    }
+
+    public function getIsBanni(): ?bool
+    {
+        return $this->isBanni;
+    }
+
+    public function setIsBanni(?bool $isBanni): self
+    {
+        $this->isBanni = $isBanni;
+
+        return $this;
+    }
+
+
 }

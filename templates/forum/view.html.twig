@@ -30,7 +30,9 @@
         </div>
         <br/>
         <h2 class="text-center">Liste des topics </h2>
+        {% if app.user.isBanni == false %}
         <a class="m-2 btn btn-primary" href="{{ path('topic_add', {'forum': forumEntity.id}) }}">Ajout</a>
+        {% endif %}
         {# total items count #}
         <div class="count">
             <h3> Number of Topic : {{ pagination.getTotalItemCount }} </h3>
@@ -52,9 +54,10 @@
                         <a href="{{ path('topic_view', {'id': topic.id}) }}">{{ topic.title }}</a>
                     </td>
                     <td>
+                        {% if app.user.isBanni == false %}
                         <a class="btn btn-primary" href="{{ path('topic_update', {'id': topic.id}) }}">Modification</a>
                         <a class="btn btn-danger" href="{{ path('topic_delete', {'id': topic.id}) }}">Suppression</a>
-
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

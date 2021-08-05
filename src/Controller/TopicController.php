@@ -166,6 +166,7 @@ class TopicController extends AbstractController
 
         $messageEntity = new Message();
         $messageEntity->setCreatedAt(new \DateTime());
+        $messageEntity->setIsChecked(0);
         $messageEntity->setTopic($topicEntity);
         $messageEntity->setUser($this->getUser());
 

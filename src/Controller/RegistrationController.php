@@ -37,7 +37,8 @@ class RegistrationController extends AbstractController
                 }
             }
             $user->setAvatar($newFilename);
-
+            $user->setNbFaute(0);
+            $user->setIsBanni(0);
 
             // encode the plain password
             $user->setPassword(

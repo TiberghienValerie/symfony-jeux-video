@@ -39,6 +39,11 @@ class Message
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isChecked;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +93,18 @@ class Message
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getIsChecked(): ?bool
+    {
+        return $this->isChecked;
+    }
+
+    public function setIsChecked(?bool $isChecked): self
+    {
+        $this->isChecked = $isChecked;
 
         return $this;
     }

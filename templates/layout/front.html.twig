@@ -26,10 +26,12 @@
                                     </li>
 
                                     {% if app.user is not null %}
+
                                         <li><hr class="dropdown-divider"></li>
                                         <li>
                                             <a class="dropdown-item" aria-current="contact" href="{{ path('contact') }}">Nous contacter</a>
                                         </li>
+
 
                                         {% if is_granted('ROLE_WORKER') == true %}
                                             <li><hr class="dropdown-divider"></li>
@@ -45,7 +47,9 @@
                     </div>
 
                     {% if app.user is null %}
-                        <h5 class="text-end"><a href="{{ path('app_login') }}">Connexion</a></h5>
+                {        {% if app.user.isBanni == false %}
+                            <h5 class="text-end"><a href="{{ path('app_login') }}">Connexion</a></h5>
+                         {% endif %}
                     {% else %}
                         <h5 class="text-end">{{ app.user.firstName }}  {{ app.user.lastName }} <img width="5%" class="text-center" src="{{ asset('/uploads/avatar/OIP.jpg') }}" /> - <a href="{{ path('app_logout') }}"> Déconnexion</a></h5>
                     {% endif %}

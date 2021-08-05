@@ -61,5 +61,16 @@ class MessageRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * @return Message[] Returns an array of message objects
+     */
+    public function findMessageNotChecked() {
+        return $this->createQueryBuilder('m')
+            ->where('m.isChecked = :checked')
+            ->setparameter(':checked', 0)
+            ->getQuery()
+            ->getResult();
+    }
+
 
 }
